@@ -10,6 +10,7 @@ cada escolha mexe em quatro pilares (Exército, Povo, Elite & Café e Controle),
 É uma homenagem independente às aulas do Se Liga (seliga.com.br), sem vínculo oficial com a equipe deles.
 
 - Fases em `fases/era-vargas.json`, código em `src/jogo/index.tsx`
+- Precisa do `ffmpeg` no PATH (o script comprime os áudios antes de gerar o bundle)
 - `npm run jogo` gera o bundle e abre um servidor local; `npm run jogo:build` gera `public/jogo/`
 - Roda só no navegador: não usa backend, conta nem armazenamento local
 
