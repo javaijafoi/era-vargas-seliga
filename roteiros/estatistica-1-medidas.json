@@ -1,0 +1,116 @@
+{
+  "tipo": "medidas",
+  "titulo": "Média, mediana e moda",
+  "dados": [23, 2, 3, 4, 2, 8, 9, 88, 67],
+  "outlier": { "indice": 7, "valor": 880 },
+  "cenas": [
+    {
+      "id": "gancho",
+      "narracao": "Média, mediana e moda. Três jeitos de achar o número que representa um grupo inteiro.",
+      "texto": "MÉDIA, *MEDIANA* E *MODA*",
+      "camera": "frente"
+    },
+    {
+      "id": "bagunca",
+      "narracao": "Olha esses nove números. Do jeito que vieram, tudo fora de ordem.",
+      "texto": "9 NÚMEROS, *FORA DE ORDEM*",
+      "destaque": "#ffd23f",
+      "camera": "perto"
+    },
+    {
+      "id": "organiza",
+      "narracao": "Pra achar a mediana, o primeiro passo é sempre organizar, do menor pro maior.",
+      "texto": "PRIMEIRO: *ORGANIZA!*",
+      "camera": "frente",
+      "ordenado": true
+    },
+    {
+      "id": "mediana",
+      "narracao": "A mediana é o valor do meio. Com nove números, é o quinto: oito.",
+      "texto": "MEDIANA = *8*",
+      "camera": "perto",
+      "ordenado": true,
+      "acender": [5]
+    },
+    {
+      "id": "par",
+      "narracao": "Se a quantidade for par, não existe um meio só. Aí você soma os dois do meio e divide por dois. Quatro mais oito, dividido por dois, dá seis.",
+      "texto": "PAR: (4 + 8) ÷ 2 = *6*",
+      "camera": "perto",
+      "ordenado": true,
+      "remover": [7],
+      "acender": [3, 5]
+    },
+    {
+      "id": "moda",
+      "narracao": "Já a moda é o valor que mais se repete. Aqui, o dois aparece duas vezes.",
+      "texto": "MODA = *2*",
+      "destaque": "#ffd23f",
+      "corColuna": "#ffd23f",
+      "camera": "perto",
+      "ordenado": true,
+      "acender": [1, 4]
+    },
+    {
+      "id": "amodal",
+      "narracao": "Se nenhum valor se repete, o conjunto é amodal. Se dois valores empatam, é bimodal.",
+      "texto": "NADA REPETE? *AMODAL*. DOIS EMPATAM? *BIMODAL*",
+      "camera": "frente",
+      "ordenado": true
+    },
+    {
+      "id": "media",
+      "narracao": "E a média? Soma tudo e divide pela quantidade. Duzentos e seis dividido por nove: quase vinte e três.",
+      "texto": "MÉDIA = 206 ÷ 9 ≈ *22,9*",
+      "camera": "frente",
+      "ordenado": true,
+      "nivelar": true,
+      "linhaMedia": true
+    },
+    {
+      "id": "nivela",
+      "narracao": "É como se todas as colunas dividissem o total igualmente entre si.",
+      "texto": "TODO MUNDO *IGUAL*",
+      "camera": "baixa",
+      "ordenado": true,
+      "nivelar": true,
+      "linhaMedia": true
+    },
+    {
+      "id": "extremo",
+      "narracao": "Agora troca o oitenta e oito por oitocentos e oitenta.",
+      "texto": "E SE O 88 VIRAR *880*?",
+      "destaque": "#ff4d4f",
+      "camera": "longe",
+      "ordenado": true,
+      "outlier": true,
+      "linhaMedia": true
+    },
+    {
+      "id": "dispara",
+      "narracao": "A média dispara pra mais de cento e dez. Mas a mediana continua sendo oito.",
+      "texto": "MÉDIA ≈ *111*. MEDIANA? AINDA *8*",
+      "camera": "longe",
+      "ordenado": true,
+      "outlier": true,
+      "linhaMedia": true,
+      "acender": [5]
+    },
+    {
+      "id": "conclusao",
+      "narracao": "Por isso, quando aparece um valor muito fora da curva, a mediana representa melhor o grupo.",
+      "texto": "VALOR EXTREMO? USE A *MEDIANA*",
+      "camera": "frente",
+      "ordenado": true,
+      "outlier": true,
+      "acender": [5]
+    },
+    {
+      "id": "cta",
+      "narracao": "Siga pra mais revisão de estatística.",
+      "texto": "SIGA PRA *MAIS REVISÃO*",
+      "camera": "frente",
+      "ordenado": true
+    }
+  ]
+}

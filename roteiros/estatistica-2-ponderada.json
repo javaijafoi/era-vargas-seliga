@@ -1,0 +1,109 @@
+{
+  "tipo": "ponderada",
+  "titulo": "Média ponderada",
+  "notas": [
+    { "nome": "Prova", "nota": 8, "peso": 3, "cor": "#3dd6f5" },
+    { "nome": "Trabalho", "nota": 6, "peso": 2, "cor": "#e8641e" },
+    { "nome": "Simulado", "nota": 5, "peso": 4, "cor": "#e9b21a" },
+    { "nome": "Participação", "nota": 10, "peso": 1, "cor": "#c062ff" }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "narracao": "Média ponderada é a média em que cada valor tem um peso diferente.",
+      "texto": "MÉDIA *PONDERADA*",
+      "camera": "frente"
+    },
+    {
+      "id": "regua",
+      "narracao": "Pensa numa régua de zero a dez, apoiada num ponto, tipo uma gangorra.",
+      "texto": "UMA GANGORRA DE *0 A 10*",
+      "camera": "lado"
+    },
+    {
+      "id": "prova",
+      "narracao": "Cada nota vira uma pilha de blocos, e o peso é a quantidade de blocos. Prova: nota oito, peso três.",
+      "texto": "PROVA: NOTA 8, PESO *3*",
+      "destaque": "#3dd6f5",
+      "camera": "frente",
+      "pilhas": [0]
+    },
+    {
+      "id": "trabalho",
+      "narracao": "Trabalho: nota seis, peso dois.",
+      "texto": "TRABALHO: NOTA 6, PESO *2*",
+      "destaque": "#e8641e",
+      "camera": "frente",
+      "pilhas": [0, 1]
+    },
+    {
+      "id": "simulado",
+      "narracao": "Simulado: nota cinco, peso quatro.",
+      "texto": "SIMULADO: NOTA 5, PESO *4*",
+      "destaque": "#e9b21a",
+      "camera": "frente",
+      "pilhas": [0, 1, 2]
+    },
+    {
+      "id": "participacao",
+      "narracao": "E participação: nota dez, peso um.",
+      "texto": "PARTICIPAÇÃO: NOTA 10, PESO *1*",
+      "destaque": "#c062ff",
+      "camera": "frente",
+      "pilhas": [0, 1, 2, 3]
+    },
+    {
+      "id": "tomba",
+      "narracao": "Percebe que, apoiada no cinco, a régua tomba?",
+      "texto": "NO 5, A RÉGUA *TOMBA*",
+      "destaque": "#ff4d4f",
+      "camera": "lado",
+      "pilhas": [0, 1, 2, 3]
+    },
+    {
+      "id": "equilibrio",
+      "narracao": "A média ponderada é justamente o ponto onde ela fica em equilíbrio. Aqui, seis vírgula seis.",
+      "texto": "EQUILÍBRIO EM *6,6*",
+      "camera": "frente",
+      "pilhas": [0, 1, 2, 3],
+      "apoio": 6.6,
+      "rotuloApoio": true
+    },
+    {
+      "id": "conta1",
+      "narracao": "Na conta, multiplica cada nota pelo seu peso e soma tudo. Vinte e quatro, mais doze, mais vinte, mais dez: sessenta e seis.",
+      "texto": "8×3 + 6×2 + 5×4 + 10×1 = *66*",
+      "camera": "perto",
+      "pilhas": [0, 1, 2, 3],
+      "apoio": 6.6,
+      "rotuloApoio": true
+    },
+    {
+      "id": "conta2",
+      "narracao": "Depois divide pela soma dos pesos, que é dez. Sessenta e seis dividido por dez: seis vírgula seis.",
+      "texto": "66 ÷ (3+2+4+1) = *6,6*",
+      "camera": "perto",
+      "pilhas": [0, 1, 2, 3],
+      "apoio": 6.6,
+      "rotuloApoio": true
+    },
+    {
+      "id": "simples",
+      "narracao": "Na média simples, daria sete e vinte e cinco. O simulado, com peso quatro, puxou a nota pra baixo.",
+      "texto": "SIMPLES: 7,25. PONDERADA: *6,6*",
+      "camera": "frente",
+      "pilhas": [0, 1, 2, 3],
+      "apoio": 6.6,
+      "rotuloApoio": true,
+      "simples": true
+    },
+    {
+      "id": "cta",
+      "narracao": "Siga pra mais revisão de estatística.",
+      "texto": "SIGA PRA *MAIS REVISÃO*",
+      "camera": "lado",
+      "pilhas": [0, 1, 2, 3],
+      "apoio": 6.6
+    }
+  ]
+}

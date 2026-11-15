@@ -1,0 +1,98 @@
+{
+  "tipo": "graficos",
+  "titulo": "Qual gráfico usar?",
+  "colunas": [
+    { "nome": "Futebol", "valor": 12, "cor": "#1f9e6a" },
+    { "nome": "Vôlei", "valor": 7, "cor": "#e8641e" },
+    { "nome": "Basquete", "valor": 5, "cor": "#e9b21a" },
+    { "nome": "Natação", "valor": 3, "cor": "#3dd6f5" },
+    { "nome": "Outros", "valor": 4, "cor": "#c062ff" }
+  ],
+  "linha": [
+    { "nome": "Seg", "valor": 30, "base": 20 },
+    { "nome": "Ter", "valor": 32 },
+    { "nome": "Qua", "valor": 31 },
+    { "nome": "Qui", "valor": 26 },
+    { "nome": "Sex", "valor": 25 },
+    { "nome": "Sáb", "valor": 28 },
+    { "nome": "Dom", "valor": 30 }
+  ],
+  "pizza": [
+    { "nome": "A pé", "valor": 50, "cor": "#1f9e6a" },
+    { "nome": "Ônibus", "valor": 25, "cor": "#e9b21a" },
+    { "nome": "Carro", "valor": 15, "cor": "#d9262c" },
+    { "nome": "Bike", "valor": 10, "cor": "#3dd6f5" }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "narracao": "Cada tipo de gráfico serve pra mostrar uma coisa diferente. Bora ver os três principais.",
+      "texto": "QUAL GRÁFICO *USAR*?",
+      "camera": "frente",
+      "grafico": "colunas"
+    },
+    {
+      "id": "colunas",
+      "narracao": "Colunas, ou barras, servem pra comparar categorias. Tipo o esporte favorito da turma.",
+      "texto": "COMPARAR? *COLUNAS*",
+      "camera": "frente",
+      "grafico": "colunas"
+    },
+    {
+      "id": "amplitude",
+      "narracao": "E a amplitude é o maior valor menos o menor. Doze menos três: nove.",
+      "texto": "AMPLITUDE = 12 − 3 = *9*",
+      "destaque": "#ff4d4f",
+      "camera": "frente",
+      "grafico": "colunas",
+      "amplitude": true
+    },
+    {
+      "id": "linha",
+      "narracao": "Pra mostrar como algo muda ao longo do tempo, o melhor é o gráfico de linhas. Tipo a temperatura da semana.",
+      "texto": "AO LONGO DO TEMPO? *LINHAS*",
+      "destaque": "#3dd6f5",
+      "camera": "frente",
+      "grafico": "linha"
+    },
+    {
+      "id": "queda",
+      "narracao": "E fica fácil achar a maior queda: é o trecho que mais desce. De quarta pra quinta, caiu cinco graus.",
+      "texto": "MAIOR QUEDA: O TRECHO QUE *MAIS DESCE*",
+      "destaque": "#ff4d4f",
+      "camera": "frente",
+      "grafico": "linha",
+      "queda": true
+    },
+    {
+      "id": "pizza",
+      "narracao": "Pra mostrar partes de um todo, use o gráfico de setores, a famosa pizza.",
+      "texto": "PARTES DE UM TODO? *SETORES*",
+      "destaque": "#ffd23f",
+      "camera": "alto",
+      "grafico": "pizza"
+    },
+    {
+      "id": "angulo",
+      "narracao": "Cada fatia é uma fração de trezentos e sessenta graus. Vinte e cinco por cento é um quarto: noventa graus.",
+      "texto": "25% DE 360° = *90°*",
+      "camera": "alto",
+      "grafico": "pizza",
+      "fatia": [1]
+    },
+    {
+      "id": "resumo",
+      "narracao": "Resumindo: pra comparar, colunas. Pro tempo, linhas. Pra partes de um todo, setores.",
+      "texto": "COMPARAR, TEMPO E *PARTES*",
+      "camera": "resumo",
+      "resumo": true
+    },
+    {
+      "id": "cta",
+      "narracao": "Siga pra mais revisão de estatística.",
+      "texto": "SIGA PRA *MAIS REVISÃO*",
+      "camera": "resumo",
+      "resumo": true
+    }
+  ]
+}

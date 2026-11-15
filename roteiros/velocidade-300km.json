@@ -1,0 +1,99 @@
+{
+  "titulo": "Qual a velocidade ideal pra dirigir 300 km?",
+  "distanciaKm": 300,
+  "carros": [
+    { "cor": "#1f9e6a", "velocidade": 80 },
+    { "cor": "#e8641e", "velocidade": 100 },
+    { "cor": "#e9b21a", "velocidade": 110 },
+    { "cor": "#d9262c", "velocidade": 140 }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "narracao": "Qual a velocidade ideal pra dirigir trezentos quilômetros?",
+      "texto": "QUAL A VELOCIDADE *IDEAL* PRA DIRIGIR *300 KM*?",
+      "camera": "baixa",
+      "velocidades": true
+    },
+    {
+      "id": "distancia",
+      "narracao": "Trezentos quilômetros é mais ou menos a distância de Recife até Natal.",
+      "texto": "*300 KM*, MAIS OU MENOS DE",
+      "destaque": "#3dd6f5",
+      "camera": "atras",
+      "feixe": "300 km",
+      "caixa": { "titulo": "RECIFE → NATAL", "sub": "≈ 300 KM DE ESTRADA" }
+    },
+    {
+      "id": "carro80",
+      "narracao": "A oitenta por hora, tranquilo, a viagem leva três horas e quarenta e cinco.",
+      "texto": "TRANQUILO, A VIAGEM LEVA *{tempo0}*",
+      "camera": "atras",
+      "barras": [0],
+      "foco": 0
+    },
+    {
+      "id": "carro100",
+      "narracao": "A cem por hora, cai pra três horas cravadas.",
+      "texto": "A 100 KM/H, CAI PRA *{tempo1}*",
+      "camera": "atras",
+      "barras": [0, 1],
+      "foco": 1
+    },
+    {
+      "id": "carro110",
+      "narracao": "A cento e dez, que é o limite das rodovias duplicadas, são duas horas e quarenta e quatro.",
+      "texto": "A 110 KM/H, O LIMITE: *{tempo2}*",
+      "camera": "atras",
+      "barras": [0, 1, 2],
+      "foco": 2
+    },
+    {
+      "id": "carro140",
+      "narracao": "E a cento e quarenta? Duas horas e nove minutos.",
+      "texto": "E A 140 KM/H? *{tempo3}*",
+      "destaque": "#ff4d4f",
+      "camera": "atras",
+      "barras": [0, 1, 2, 3],
+      "foco": 3
+    },
+    {
+      "id": "corrida",
+      "narracao": "Do mais lento pro mais rápido, a diferença é de uma hora e trinta e seis.",
+      "texto": "DIFERENÇA TOTAL: *1H36*",
+      "camera": "alta",
+      "corrida": true,
+      "velocidades": true
+    },
+    {
+      "id": "economia",
+      "narracao": "Mas entre cento e dez e cento e quarenta, você economiza só trinta e cinco minutos.",
+      "texto": "DE 110 PRA 140: SÓ *35 MIN* A MENOS",
+      "destaque": "#ffd23f",
+      "camera": "lateral",
+      "barras": [2, 3]
+    },
+    {
+      "id": "custo",
+      "narracao": "E ainda arrisca uma multa grave e gasta bem mais combustível.",
+      "texto": "E AINDA: *MULTA GRAVE* E MAIS *COMBUSTÍVEL*",
+      "destaque": "#ff4d4f",
+      "camera": "atras",
+      "velocidades": true
+    },
+    {
+      "id": "conclusao",
+      "narracao": "Ou seja, a velocidade ideal é a do limite. Correr mais quase não compensa.",
+      "texto": "A VELOCIDADE IDEAL? *A DO LIMITE*",
+      "camera": "baixa",
+      "barras": [0, 1, 2, 3],
+      "foco": 2
+    },
+    {
+      "id": "cta",
+      "narracao": "Siga pra ver mais comparações como essa.",
+      "texto": "SIGA PRA VER *MAIS*",
+      "camera": "alta"
+    }
+  ]
+}

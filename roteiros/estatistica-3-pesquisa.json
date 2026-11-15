@@ -1,0 +1,107 @@
+{
+  "tipo": "pesquisa",
+  "titulo": "Pesquisa e tipos de variável",
+  "amostra": [2, 9, 13, 18, 24, 31, 37, 43, 47, 52],
+  "rotulos": [
+    { "texto": "altura: 1,72 m", "cor": "#3dd6f5" },
+    { "texto": "irmãos: 2", "cor": "#3dd6f5" },
+    { "texto": "olhos: castanhos", "cor": "#ffd23f" },
+    { "texto": "escolaridade: médio", "cor": "#ffd23f" }
+  ],
+  "cenas": [
+    {
+      "id": "gancho",
+      "narracao": "Toda pesquisa começa com uma pergunta: quem eu vou ouvir?",
+      "texto": "QUEM A PESQUISA *VAI OUVIR*?",
+      "camera": "geral"
+    },
+    {
+      "id": "censo",
+      "narracao": "Se você ouve todo mundo, sem deixar ninguém de fora, a pesquisa é censitária. É o caso do censo do IBGE.",
+      "texto": "TODO MUNDO? *CENSITÁRIA*",
+      "camera": "geral",
+      "censo": true
+    },
+    {
+      "id": "caro",
+      "narracao": "O problema é que, num grupo enorme, isso custa caro e demora muito.",
+      "texto": "CARO E *DEMORADO*",
+      "destaque": "#ff4d4f",
+      "camera": "baixa",
+      "censo": true
+    },
+    {
+      "id": "amostra",
+      "narracao": "Aí entra a pesquisa amostral: você escolhe só uma parte, que represente bem o grupo todo.",
+      "texto": "SÓ UMA PARTE? *AMOSTRAL*",
+      "destaque": "#ffd23f",
+      "camera": "geral",
+      "amostra": true
+    },
+    {
+      "id": "eleitoral",
+      "narracao": "Pesquisa eleitoral funciona assim. Ninguém entrevista o país inteiro.",
+      "texto": "EX.: *PESQUISA ELEITORAL*",
+      "destaque": "#ffd23f",
+      "camera": "baixa",
+      "amostra": true
+    },
+    {
+      "id": "variaveis",
+      "narracao": "E o que você anota sobre cada pessoa são as variáveis.",
+      "texto": "O QUE VOCÊ ANOTA: *VARIÁVEIS*",
+      "camera": "perto",
+      "foco": true
+    },
+    {
+      "id": "continua",
+      "narracao": "Altura é quantitativa contínua: é um número, e pode ter vírgula.",
+      "texto": "ALTURA: QUANTITATIVA *CONTÍNUA*",
+      "destaque": "#3dd6f5",
+      "camera": "perto",
+      "foco": true,
+      "rotulos": [0]
+    },
+    {
+      "id": "discreta",
+      "narracao": "Número de irmãos é quantitativa discreta: número inteiro, de contagem.",
+      "texto": "IRMÃOS: QUANTITATIVA *DISCRETA*",
+      "destaque": "#3dd6f5",
+      "camera": "perto",
+      "foco": true,
+      "rotulos": [0, 1]
+    },
+    {
+      "id": "nominal",
+      "narracao": "Cor dos olhos é qualitativa nominal: é uma categoria, sem ordem nenhuma.",
+      "texto": "OLHOS: QUALITATIVA *NOMINAL*",
+      "destaque": "#ffd23f",
+      "camera": "perto",
+      "foco": true,
+      "rotulos": [0, 1, 2]
+    },
+    {
+      "id": "ordinal",
+      "narracao": "Escolaridade é qualitativa ordinal: também é categoria, mas tem uma ordem, do fundamental à pós.",
+      "texto": "ESCOLARIDADE: QUALITATIVA *ORDINAL*",
+      "destaque": "#ffd23f",
+      "camera": "perto",
+      "foco": true,
+      "rotulos": [0, 1, 2, 3]
+    },
+    {
+      "id": "resumo",
+      "narracao": "Resumindo: se é número, é quantitativa. Se é categoria, é qualitativa.",
+      "texto": "NÚMERO? *QUANTITATIVA*. CATEGORIA? *QUALITATIVA*",
+      "camera": "perto",
+      "foco": true,
+      "rotulos": [0, 1, 2, 3]
+    },
+    {
+      "id": "cta",
+      "narracao": "Siga pra mais revisão de estatística.",
+      "texto": "SIGA PRA *MAIS REVISÃO*",
+      "camera": "geral"
+    }
+  ]
+}

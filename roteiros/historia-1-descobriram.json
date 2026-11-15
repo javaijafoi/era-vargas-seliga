@@ -1,0 +1,115 @@
+{
+ "tipo": "chegada",
+ "tema": "livro",
+ "titulo": "Descobriram o quê?",
+ "voz": "pm_santa",
+ "cenas": [
+  {
+   "id": "gancho",
+   "narracao": "Abril de mil e quinhentos. Diz o livro de história: Cabral descobriu o Brasil.",
+   "texto": "1500: CABRAL *DESCOBRIU* O BRASIL",
+   "camera": "mar",
+   "navios": 0.15
+  },
+  {
+   "id": "vizinho",
+   "narracao": "Descobriu. Tipo quando você descobre a casa do vizinho. Com o vizinho dentro.",
+   "texto": "DESCOBRIU… *A CASA DOS OUTROS*",
+   "camera": "praia",
+   "navios": 0.25,
+   "aldeia": true,
+   "pessoas": 0.5
+  },
+  {
+   "id": "gente",
+   "narracao": "Porque aqui já morava gente. Milhões de pessoas, centenas de povos, há milhares de anos.",
+   "texto": "*MILHÕES* DE PESSOAS JÁ MORAVAM AQUI",
+   "camera": "alta",
+   "navios": 0.3,
+   "aldeia": true,
+   "pessoas": 1,
+   "rotulos": true
+  },
+  {
+   "id": "saberes",
+   "narracao": "Com roça, rede, canoa, remédio do mato e o mapa do território inteiro na cabeça.",
+   "texto": "ROÇA, REDE, CANOA E *MAPA NA CABEÇA*",
+   "camera": "aldeia",
+   "navios": 0.35,
+   "aldeia": true,
+   "pessoas": 1,
+   "roca": true
+  },
+  {
+   "id": "chegam",
+   "narracao": "Aí chegam treze navios, depois de quarenta e quatro dias de mar, sem banho e com muita pressa.",
+   "texto": "13 NAVIOS, 44 DIAS, *ZERO BANHO*",
+   "camera": "navios",
+   "navios": 1,
+   "aldeia": true,
+   "pessoas": 1,
+   "roca": true
+  },
+  {
+   "id": "anotam",
+   "narracao": "Olham pra praia lotada de gente e anotam no diário: terra nova.",
+   "texto": "PRAIA LOTADA. ANOTAÇÃO: *TERRA NOVA*",
+   "camera": "praia",
+   "navios": 1,
+   "aldeia": true,
+   "pessoas": 1,
+   "roca": true
+  },
+  {
+   "id": "cruz",
+   "narracao": "Fincam uma cruz, rezam uma missa e declaram que tudo agora pertence a um rei que mora do outro lado do oceano.",
+   "texto": "AGORA TUDO É DO *REI*",
+   "camera": "cruz",
+   "navios": 1,
+   "aldeia": true,
+   "pessoas": 1,
+   "roca": true,
+   "cruz": true,
+   "portugueses": true
+  },
+  {
+   "id": "carta",
+   "narracao": "E mandam uma carta pra casa elogiando os nativos: bonitos, saudáveis, e ótimos pra converter.",
+   "texto": "A CARTA: *ÓTIMOS PRA CONVERTER*",
+   "camera": "praia",
+   "navios": 1,
+   "aldeia": true,
+   "pessoas": 1,
+   "roca": true,
+   "cruz": true,
+   "portugueses": true
+  },
+  {
+   "id": "resto",
+   "narracao": "O resto você conhece: pau-brasil, ouro, doença e escravidão.",
+   "texto": "PAU-BRASIL, OURO, DOENÇA, *ESCRAVIDÃO*",
+   "camera": "alta",
+   "navios": 1,
+   "aldeia": true,
+   "pessoas": 1,
+   "roca": true,
+   "cruz": true,
+   "portugueses": true,
+   "saque": true
+  },
+  {
+   "id": "final",
+   "narracao": "Então corrige aí o livro. Não foi descoberta. Foi invasão, com assessoria de imprensa.",
+   "texto": "NÃO FOI DESCOBERTA. FOI *INVASÃO*",
+   "camera": "praia",
+   "navios": 1,
+   "aldeia": true,
+   "pessoas": 1,
+   "cruz": true,
+   "portugueses": true,
+   "saque": true,
+   "carimbo": "INVASÃO",
+   "duracaoMin": 6
+  }
+ ]
+}

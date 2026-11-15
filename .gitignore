@@ -1,0 +1,7 @@
+node_modules/
+.venv/
+.vercel/
+voices/
+out/
+*.zip
+public/audio/

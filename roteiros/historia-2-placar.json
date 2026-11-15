@@ -1,0 +1,20 @@
+{
+  "tipo": "placar",
+  "tema": "placar",
+  "titulo": "Placar do primeiro contato",
+  "voz": "pm_santa",
+  "cenas": [
+    {"id": "abertura", "narracao": "Boa noite, torcida! Hoje tem clássico: abril de mil e quinhentos, portugueses contra os povos indígenas. Primeiro contato!",
+     "texto": "O CLÁSSICO DE *1500*", "camera": "alta", "placar": [0, 0], "rodadaTxt": "PRIMEIRO CONTATO"},
+    {"id": "banho", "narracao": "Primeira rodada: higiene. Os indígenas tomam banho de rio várias vezes por dia. Os portugueses chegam depois de quarenta e quatro dias de navio. Sem banho. Ponto pros indígenas!",
+     "texto": "RODADA 1: *HIGIENE*", "camera": "frente", "rodada": "banho", "vencedor": "d", "placar": [0, 1], "rodadaTxt": "RODADA 1"},
+    {"id": "figurino", "narracao": "Segunda rodada: figurino. Trinta graus na sombra, e os europeus de veludo, meia-calça e armadura. Os nativos, perfeitamente adaptados ao clima.",
+     "texto": "RODADA 2: *FIGURINO*", "camera": "esquerda", "rodada": "figurino", "vencedor": "d", "placar": [0, 2], "rodadaTxt": "RODADA 2"},
+    {"id": "negocios", "narracao": "Terceira rodada: negócios. Os portugueses oferecem espelhinho e chocalho, e levam a madeira, a terra e, se deixar, o país inteiro. Ponto pra eles. Na malandragem.",
+     "texto": "RODADA 3: *NEGÓCIOS*", "camera": "centro", "rodada": "negocios", "vencedor": "e", "placar": [1, 2], "rodadaTxt": "RODADA 3"},
+    {"id": "presente", "narracao": "Quarta rodada: presente de boas-vindas. Gripe, varíola e sarampo. Falta gravíssima! E o juiz? O juiz é português.",
+     "texto": "RODADA 4: *O PRESENTE*", "camera": "direita", "rodada": "presente", "placar": [1, 2], "rodadaTxt": "RODADA 4 · SEGUE O JOGO"},
+    {"id": "final", "narracao": "Fim de jogo. Os indígenas ganharam no campo. Mas quem escreveu a crônica da partida foi o outro time. E chamou a invasão de descobrimento.",
+     "texto": "PERDERAM NO CAMPO, *GANHARAM NO LIVRO*", "camera": "frente", "vencedor": "d", "doentes": true, "placar": [1, 2], "rodadaTxt": "FIM DE JOGO", "duracaoMin": 6}
+  ]
+}

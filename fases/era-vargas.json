@@ -1,0 +1,402 @@
+{
+  "titulo": "Era Vargas: O Equilibrista",
+  "subtitulo": "1930–1945 · No Palco do Se Liga",
+  "pilares": [
+    {"id": "exercito", "nome": "Exército", "icone": "🎖️", "cor": "#3df28f", "inicial": 50},
+    {"id": "povo", "nome": "Povo", "icone": "⚒️", "cor": "#3dd6f5", "inicial": 50},
+    {"id": "elite", "nome": "Elite & Café", "icone": "☕", "cor": "#ffd000", "inicial": 50},
+    {"id": "poder", "nome": "Controle", "icone": "👑", "cor": "#ff6b00", "inicial": 50}
+  ],
+  "quedas": {
+    "exercito_min": {
+      "titulo": "MOTIM NOS QUARTÉIS!",
+      "carimbo": "DEPOSTO!",
+      "texto": "Sem o apoio dos tenentes e generais, as tropas cercaram o Palácio do Catete. Você caiu antes de completar a Era Vargas!"
+    },
+    "exercito_max": {
+      "titulo": "JUNTA MILITAR NO PODER!",
+      "carimbo": "SUBSTITUÍDO!",
+      "texto": "Você deu força demais aos quartéis: os generais decidiram governar sem precisar de Getúlio Vargas!"
+    },
+    "povo_min": {
+      "titulo": "GREVE GERAL NAS CIDADES!",
+      "carimbo": "REVOLTA!",
+      "texto": "Sem o apoio dos trabalhadores e das ruas, fábricas pararam e o governo ruiu em meio a protestos!"
+    },
+    "povo_max": {
+      "titulo": "ASSEMBLEIA POPULAR TOMA O CATETE!",
+      "carimbo": "ULTRAPASSADO!",
+      "texto": "As massas mobilizadas exigiram o poder direto e não aceitaram mais um caudilho tentando controlar os sindicatos!"
+    },
+    "elite_min": {
+      "titulo": "BOICOTE DOS CAFEICULTORES!",
+      "carimbo": "SEM CAIXA!",
+      "texto": "A oligarquia e os empresários cortaram crédito, financiaram milícias estaduais e sufocaram seu governo!"
+    },
+    "elite_max": {
+      "titulo": "RETORNO DA REPÚBLICA DO CAFÉ COM LEITE!",
+      "carimbo": "DERRUBADO!",
+      "texto": "Fortalecidos demais, os barões paulistas retomaram o comando e encerraram seu projeto de Estado!"
+    },
+    "poder_min": {
+      "titulo": "PRESIDENTE SEM AUTORIDADE!",
+      "carimbo": "RENÚNCIA!",
+      "texto": "Você perdeu todas as rédeas do jogo político. Sem controle, o Congresso e os estados te empurraram para fora!"
+    },
+    "poder_max": {
+      "titulo": "PODER ABSOLUTO EXPLODIU!",
+      "carimbo": "ISOLADO!",
+      "texto": "Centralizou tudo nas próprias mãos tão cedo que todos os grupos se uniram numa frente única para te derrubar!"
+    }
+  },
+  "atos": [
+    {
+      "id": "eleicao-1930",
+      "ano": "1930",
+      "epoca": "ELEIÇÃO DE 1930",
+      "titulo": "A ELEIÇÃO PERDIDA",
+      "pergunta": "Menos de 10% do Brasil votou e o esquema paulista deu a vitória a Júlio Prestes. Seus aliados da Aliança Liberal querem agir!",
+      "comentarioProf": "Se liga! O Getúlio até aceitou a derrota no começo... mas os tenentes e a Aliança Liberal estavam armados!",
+      "audio": "jogo/audio/eleicao-1930.mp3",
+      "camera": "esquerda",
+      "estado": {"eleicao1930": 1},
+      "opcoes": [
+        {
+          "texto": "Marchar pro Rio e dar o Golpe de 1930!",
+          "efeitos": {"exercito": 12, "povo": 8, "elite": -14, "poder": 16},
+          "carimbo": "GOLPE DE 30!",
+          "historico": true,
+          "estadoResultado": {"eleicao1930": 1, "dramaticoExtra": 0.9},
+          "resultado": "Na história real: a Aliança Liberal depôs Washington Luís! Getúlio virou presidente mesmo perdendo a eleição."
+        },
+        {
+          "texto": "Aceitar a derrota e seguir no Rio Grande do Sul",
+          "efeitos": {"exercito": -22, "povo": -8, "elite": 18, "poder": -24},
+          "carimbo": "APOSENTADO?",
+          "historico": false,
+          "estadoResultado": {"eleicao1930": 1},
+          "resultado": "História alternativa: sem o Golpe de 1930, Júlio Prestes assume e a Velha República continua por mais anos."
+        }
+      ]
+    },
+    {
+      "id": "crise-cafe",
+      "ano": "1931",
+      "epoca": "CRISE DE 1929",
+      "titulo": "A QUEIMA DO CAFÉ",
+      "pergunta": "A Bolsa de Nova York quebrou e ninguém compra nosso café! O preço despencou e fazendeiros ameaçam falir.",
+      "comentarioProf": "Para salvar o preço internacional pela escassez, o governo tomou uma decisão drástica: fogo nas sacas!",
+      "audio": "jogo/audio/mundo-crise.mp3",
+      "camera": "palco",
+      "estado": {"cafe": 1},
+      "opcoes": [
+        {
+          "texto": "Comprar e queimar 78 milhões de sacas de café",
+          "efeitos": {"exercito": 0, "povo": -12, "elite": 18, "poder": 4},
+          "carimbo": "78M QUEIMADAS",
+          "historico": true,
+          "estadoResultado": {"cafe": 1},
+          "resultado": "Histórico! Vargas comprou os excedentes e queimou 78 milhões de sacas para segurar o preço e acalmar os cafeicultores."
+        },
+        {
+          "texto": "Deixar o mercado quebrar e cortar apoio ao café",
+          "efeitos": {"exercito": -6, "povo": 12, "elite": -28, "poder": -10},
+          "carimbo": "ELITE EM FÚRIA",
+          "historico": false,
+          "estadoResultado": {"operarios": 1},
+          "resultado": "E se...? Sem subsídio, os barões do café entram em colapso rápido e financiam conspirações contra o Catete."
+        }
+      ]
+    },
+    {
+      "id": "interventores",
+      "ano": "1931",
+      "epoca": "GOVERNO PROVISÓRIO",
+      "titulo": "INTERVENTORES & MINISTÉRIOS",
+      "pergunta": "Os governadores estaduais resistem ao novo regime, enquanto os operários crescem rápido nas cidades.",
+      "comentarioProf": "Hora do mestre da conciliação: controle político nos estados e novos ministérios para Educação, Saúde e Trabalho!",
+      "audio": "jogo/audio/interventores.mp3",
+      "camera": "close",
+      "estado": {"interventores": 1},
+      "opcoes": [
+        {
+          "texto": "Nomear interventores e criar Ministérios sociais",
+          "efeitos": {"exercito": 8, "povo": 10, "elite": -12, "poder": 10},
+          "carimbo": "INTERVENTORES!",
+          "historico": true,
+          "estadoResultado": {"ministerios": 1},
+          "resultado": "Histórico! Trocou governadores por interventores fiéis e criou Educação, Saúde e Trabalho."
+        },
+        {
+          "texto": "Manter os governadores eleitos pelas oligarquias",
+          "efeitos": {"exercito": -16, "povo": -10, "elite": 18, "poder": -18},
+          "carimbo": "SEM COMANDO",
+          "historico": false,
+          "estadoResultado": {"interventores": 0.35},
+          "resultado": "História alternativa: os coronéis locais continuam mandando nos estados e esvaziam seu governo provisório."
+        }
+      ]
+    },
+    {
+      "id": "revolucao-32",
+      "ano": "1932",
+      "epoca": "9 DE JULHO DE 1932",
+      "titulo": "REVOLUÇÃO CONSTITUCIONALISTA",
+      "pergunta": "Após as mortes do grupo MMDC, São Paulo pegou em armas exigindo o fim do governo provisório e uma Constituição!",
+      "comentarioProf": "São Paulo perdeu nas armas depois de quase três meses... mas olha a jogada política do Getúlio logo em seguida!",
+      "audio": "jogo/audio/revolucao-32.mp3",
+      "camera": "esquerda",
+      "estado": {"revolucao32": 1},
+      "opcoes": [
+        {
+          "texto": "Vencer na guerra, assumir dívidas e prometer Carta",
+          "efeitos": {"exercito": 8, "povo": 4, "elite": 16, "poder": -12},
+          "carimbo": "CONCILIADOR!",
+          "historico": true,
+          "estadoResultado": {"revolucao32": 1},
+          "resultado": "Histórico! São Paulo perdeu militarmente, mas Vargas assumiu a dívida paulista e convocou a Constituinte."
+        },
+        {
+          "texto": "Esmagar São Paulo e confiscar indústrias locais",
+          "efeitos": {"exercito": 12, "povo": -10, "elite": -28, "poder": 18},
+          "carimbo": "MÃO DE FERRO",
+          "historico": false,
+          "estadoResultado": {"revolucao32": 1, "alertaExtra": 0.7},
+          "resultado": "E se...? A repressão brutal transforma São Paulo num barril de pólvora permanente contra o governo federal."
+        }
+      ]
+    },
+    {
+      "id": "carta-34",
+      "ano": "1934",
+      "epoca": "GOVERNO CONSTITUCIONAL",
+      "titulo": "A CARTA MONSTRO",
+      "pergunta": "A Constituição de 1934 trouxe voto feminino e voto secreto, mas limitou seu poder e proibiu reeleição em 1938.",
+      "comentarioProf": "O Getúlio odiava constituições que tiravam seu poder! Chamou essa de 'Carta Monstro', mas esperou o momento certo.",
+      "audio": "jogo/audio/constituicao-34.mp3",
+      "camera": "close",
+      "estado": {"carta34": 1},
+      "opcoes": [
+        {
+          "texto": "Engolir a Constituição agora e aguardar o bote",
+          "efeitos": {"exercito": -10, "povo": 14, "elite": 8, "poder": -18},
+          "carimbo": "VOTO FEMININO!",
+          "historico": true,
+          "estadoResultado": {"carta34": 1},
+          "resultado": "Histórico! Governou sob a Carta de 34 por três anos, consolidando o voto secreto e feminino antes de virar o jogo."
+        },
+        {
+          "texto": "Rasgar a Carta imediatamente e fechar o Congresso",
+          "efeitos": {"exercito": -14, "povo": -16, "elite": -18, "poder": 28},
+          "carimbo": "DITADURA JÁ!",
+          "historico": false,
+          "estadoResultado": {"carta34": 1, "estadoNovo": 1},
+          "resultado": "E se...? Sem pretexto para o golpe, parte do Exército e os constitucionalistas se unem contra você na hora!"
+        }
+      ]
+    },
+    {
+      "id": "intentona-35",
+      "ano": "1935",
+      "epoca": "NOVEMBRO DE 1935",
+      "titulo": "INTENTONA COMUNISTA",
+      "pergunta": "Levantes ligados à Aliança Nacional Libertadora estouraram em Natal, Recife e Rio. Os quartéis querem resposta dura!",
+      "comentarioProf": "Em 1935, Getúlio aproveitou o medo do comunismo para ganhar superpoderes de repressão e perseguir opositores.",
+      "audio": "jogo/audio/intentona-35.mp3",
+      "camera": "palacio",
+      "estado": {"planoCohen": 0.45},
+      "opcoes": [
+        {
+          "texto": "Reprimir geral, prender líderes e caçar radicais",
+          "efeitos": {"exercito": 14, "povo": -16, "elite": 10, "poder": 12},
+          "carimbo": "REPRESSÃO!",
+          "historico": true,
+          "estadoResultado": {"planoCohen": 0.75, "alertaExtra": 0.8},
+          "resultado": "Histórico! Vargas decretou estado de sítio, prendeu milhares e deportou Olga Benário para a Alemanha nazista."
+        },
+        {
+          "texto": "Anistiar rebeldes e legalizar os movimentos",
+          "efeitos": {"exercito": -28, "povo": 18, "elite": -20, "poder": -14},
+          "carimbo": "QUARTEL EM ALERTA",
+          "historico": false,
+          "estadoResultado": {"operarios": 1},
+          "resultado": "E se...? Generais anticomunistas acusam o presidente de fraqueza e articulam derrubá-lo."
+        }
+      ]
+    },
+    {
+      "id": "plano-cohen",
+      "ano": "1937",
+      "epoca": "10 DE NOVEMBRO DE 1937",
+      "titulo": "A FARSA DO PLANO COHEN",
+      "pergunta": "Falta pouco para a eleição de 1938! Surge um documento forjado alertando que comunistas vão incendiar casas pelo país.",
+      "comentarioProf": "É o famoso golpe dentro do golpe! Getúlio usou o Plano Cohen falso para fechar tudo e inaugurar o Estado Novo!",
+      "audio": "jogo/audio/plano-cohen.mp3",
+      "camera": "palco",
+      "estado": {"planoCohen": 1},
+      "opcoes": [
+        {
+          "texto": "Usar o Plano Cohen e dar o autogolpe: Estado Novo!",
+          "efeitos": {"exercito": 6, "povo": -12, "elite": -10, "poder": 22},
+          "carimbo": "ESTADO NOVO!",
+          "historico": true,
+          "estadoResultado": {"carta34": 1, "estadoNovo": 1, "alertaExtra": 1},
+          "resultado": "Histórico! Golpe nº 2! Vargas deu um golpe em si mesmo, cancelou eleições e impôs a ditadura do Estado Novo (1937–45)."
+        },
+        {
+          "texto": "Desmascarar a farsa e organizar eleições livres",
+          "efeitos": {"exercito": -12, "povo": 16, "elite": 12, "poder": -32},
+          "carimbo": "FIM DE MANDATO",
+          "historico": false,
+          "estadoResultado": {"carta34": 1},
+          "resultado": "E se...? Sem autogolpe, você passa a faixa em 1938 — não haveria Estado Novo nem 15 anos seguidos no Catete."
+        }
+      ]
+    },
+    {
+      "id": "pijama-38",
+      "ano": "1938",
+      "epoca": "MAIO DE 1938",
+      "titulo": "ATAQUE INTEGRALISTA DE MADRUGADA",
+      "pergunta": "Você fechou todos os partidos e os integralistas de camisa verde invadiram o Palácio Guanabara! Mas esqueceram a dinamite...",
+      "comentarioProf": "Cena de teatro! Com os filhos e a guarda, Getúlio resistiu até a tropa chegar pela linha secreta!",
+      "audio": "jogo/audio/intentona-integralista.mp3",
+      "camera": "direita",
+      "estado": {"pijama": 1},
+      "opcoes": [
+        {
+          "texto": "Segurar o ataque e chamar socorro na linha secreta",
+          "efeitos": {"exercito": -8, "povo": 8, "elite": 4, "poder": 2},
+          "carimbo": "ESQUECERAM A DINAMITE!",
+          "historico": true,
+          "estadoResultado": {"pijama": 1, "dramaticoExtra": 0.9},
+          "resultado": "Histórico! Os guardas chegaram a tempo, derrotaram os integralistas e o Estado Novo ficou ainda mais blindado."
+        },
+        {
+          "texto": "Negociar a rendição e devolver cargos aos camisas-verdes",
+          "efeitos": {"exercito": -22, "povo": -16, "elite": -10, "poder": -28},
+          "carimbo": "RENDIÇÃO!",
+          "historico": false,
+          "estadoResultado": {"pijama": 1, "alertaExtra": 1},
+          "resultado": "E se...? Os integralistas tomam o palácio e substituem seu projeto nacional-trabalhista por um regime fascista próprio."
+        }
+      ]
+    },
+    {
+      "id": "dip-39",
+      "ano": "1939",
+      "epoca": "PROPAGANDA E CENSURA",
+      "titulo": "A MÁQUINA DO DIP",
+      "pergunta": "Como sustentar uma ditadura sem eleições por anos? Rádios se multiplicam nas casas brasileiras.",
+      "comentarioProf": "De um lado, censura dura nos jornais. Do outro, o DIP construindo a imagem de 'Pai dos Pobres' na Hora do Brasil!",
+      "audio": "jogo/audio/dip-propaganda.mp3",
+      "camera": "palco",
+      "estado": {"dipGuerra": 1},
+      "opcoes": [
+        {
+          "texto": "Criar DASP e DIP: censura + 'Pai dos Pobres' no rádio",
+          "efeitos": {"exercito": -6, "povo": 16, "elite": -12, "poder": 2},
+          "carimbo": "PAI DOS POBRES",
+          "historico": true,
+          "estadoResultado": {"dipGuerra": 1},
+          "resultado": "Histórico! O DIP censurou críticos, exaltou a imagem de Getúlio e transformou o samba e o rádio em política de Estado."
+        },
+        {
+          "texto": "Abolir a censura e manter liberdade total de imprensa",
+          "efeitos": {"exercito": -8, "povo": 8, "elite": 14, "poder": -26},
+          "carimbo": "JORNAIS LIVRES!",
+          "historico": false,
+          "estadoResultado": {"dipGuerra": 0.4},
+          "resultado": "E se...? A imprensa democrática expõe os abusos do regime autoritário todos os dias, corroendo a ditadura rapidamente."
+        }
+      ]
+    },
+    {
+      "id": "segunda-guerra",
+      "ano": "1942",
+      "epoca": "2ª GUERRA MUNDIAL",
+      "titulo": "O LEILÃO DA GUERRA",
+      "pergunta": "Alemanha e Estados Unidos disputam o Brasil estratégico! Roosevelt oferece US$ 200 milhões para nossa industrialização.",
+      "comentarioProf": "Vargas fez leilão diplomático! Quem pagou mais levou: os EUA financiaram a CSN e a Vale do Rio Doce!",
+      "audio": "jogo/audio/segunda-guerra.mp3",
+      "camera": "alta",
+      "estado": {"dipGuerra": 1},
+      "opcoes": [
+        {
+          "texto": "Fechar com os EUA e erguer a CSN e a Vale!",
+          "efeitos": {"exercito": 8, "povo": 4, "elite": 12, "poder": -8},
+          "carimbo": "US$ 200 MI · AÇO!",
+          "historico": true,
+          "estadoResultado": {"industria": 1},
+          "resultado": "Histórico! Aço da CSN em Volta Redonda e envio da FEB à Itália — ao custo de mais de 10 mil mortos na Batalha da Borracha."
+        },
+        {
+          "texto": "Manter acordos comerciais e militares com a Alemanha",
+          "efeitos": {"exercito": -14, "povo": -22, "elite": -18, "poder": 8},
+          "carimbo": "ALIANÇA DO EIXO",
+          "historico": false,
+          "estadoResultado": {"dipGuerra": 1, "alertaExtra": 0.9},
+          "resultado": "E se...? Navios aliados bloqueiam o Atlântico e os Estados Unidos pressionam pela deposição imediata do governo."
+        }
+      ]
+    },
+    {
+      "id": "clt-1943",
+      "ano": "1943",
+      "epoca": "1º DE MAIO DE 1943",
+      "titulo": "ASSINAR A CLT",
+      "pergunta": "A classe operária cresce nas novas fábricas. Um grande pacote de leis trabalhistas unificadas está na sua mesa!",
+      "comentarioProf": "Esse é o coração do paradoxo: um ditador entregando jornada de 8 horas, férias e carteira assinada na CLT!",
+      "audio": "jogo/audio/clt-1943.mp3",
+      "camera": "close",
+      "estado": {"clt": 1},
+      "opcoes": [
+        {
+          "texto": "Promulgar a CLT: 8 horas, descanso semanal e salário mínimo",
+          "efeitos": {"exercito": -10, "povo": 12, "elite": -18, "poder": -6},
+          "carimbo": "CLT 1943!",
+          "historico": true,
+          "estadoResultado": {"clt": 1},
+          "resultado": "Histórico! A CLT garantiu direitos trabalhistas históricos e selou a devoção operária que sustentou o 'queremismo'."
+        },
+        {
+          "texto": "Engavetar a CLT para agradar os donos de fábrica",
+          "efeitos": {"exercito": 6, "povo": -28, "elite": 18, "poder": -4},
+          "carimbo": "GREVES NAS FÁBRICAS",
+          "historico": false,
+          "estadoResultado": {"operarios": 1},
+          "resultado": "E se...? Sem direitos garantidos e com inflação de guerra, os operários rompem com você e vão às ruas contra o Estado Novo."
+        }
+      ]
+    },
+    {
+      "id": "abertura-1945",
+      "ano": "1945",
+      "epoca": "29 DE OUTUBRO DE 1945",
+      "titulo": "FIM DA GUERRA E O IRMÃO BENJAMIM",
+      "pergunta": "A democracia venceu Hitler — não dá mais para manter ditadura aqui. Você cria PTB e PSD, mas falta uma cartada final...",
+      "comentarioProf": "Atenção ao último ato! Na vida real, Getúlio cometeu um erro fatal com seu irmão Benjamim...",
+      "audio": "jogo/audio/abertura-1945.mp3",
+      "camera": "esquerda",
+      "estado": {"golpe1945": 1},
+      "opcoes": [
+        {
+          "texto": "Nomear o irmão Benjamim chefe de polícia do Rio",
+          "efeitos": {"exercito": -25, "povo": 6, "elite": -14, "poder": -18},
+          "carimbo": "GOLPE DE 45!",
+          "historico": true,
+          "estadoResultado": {"golpe1945": 1, "alertaExtra": 0.9},
+          "resultado": "Histórico! Golpe nº 3! Os militares temeram outro autogolpe e depuseram Getúlio: entrou num golpe (30), deu um golpe (37) e saiu num golpe (45)!"
+        },
+        {
+          "texto": "Recuar, manter militares no comando e garantir transição calma",
+          "efeitos": {"exercito": 12, "povo": 6, "elite": 10, "poder": -14},
+          "carimbo": "SAIU PELOS VOTOS!",
+          "historico": false,
+          "estadoResultado": {"tresFases": 1},
+          "resultado": "E se...? Sem o estopim de Benjamim Vargas, você completa os 15 anos de governo e entrega o cargo na eleição sem o golpe final!"
+        }
+      ]
+    }
+  ]
+}

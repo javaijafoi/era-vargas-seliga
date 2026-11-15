@@ -1,0 +1,194 @@
+{
+  "tipo": "vargas",
+  "tema": "seliga",
+  "titulo": "Getúlio Vargas: Herói ou Vilão? (Resumo Se Liga)",
+  "apresentadorNome": "SE LIGA",
+  "voz": "pm_santa",
+  "velocidadeVoz": 1.12,
+  "cenas": [
+    {
+      "id": "abertura",
+      "logoIntro": true,
+      "epoca": "1930–1945 · ERA VARGAS",
+      "narracao": "Fala, povo lindo! Getúlio Vargas é o presidente da vez. Herói ou vilão? Comenta aí antes do vídeo começar!",
+      "texto": "GETÚLIO VARGAS: *HERÓI* OU *VILÃO?*",
+      "camera": "palco",
+      "heroiVilao": true
+    },
+    {
+      "id": "tres-atos",
+      "epoca": "15 ANOS NO PODER",
+      "narracao": "Ele governou por quinze anos seguidos, mais que Dom Pedro Primeiro! E dividimos essa história em três atos: Provisório, Constitucional e Estado Novo.",
+      "texto": "15 ANOS EM *TRÊS ATOS* DRAMÁTICOS",
+      "camera": "alta",
+      "tresFases": true
+    },
+    {
+      "id": "mundo-crise",
+      "epoca": "ANOS 30 · CRISE MUNDIAL",
+      "narracao": "O mundo fervia com a crise de vinte e nove, Hitler, Mussolini e Stalin. Aqui, o café despencou e queimaram setenta e oito milhões de sacas!",
+      "texto": "CRISE DE 29: *78 MILHÕES* DE SACAS QUEIMADAS",
+      "camera": "palco",
+      "cafe": true,
+      "operarios": true
+    },
+    {
+      "id": "brasil-urbano",
+      "epoca": "BRASIL DE 40 MILHÕES",
+      "narracao": "Quarenta milhões de brasileiros trocavam o campo pelas fábricas. O samba virava identidade nacional e as mulheres lutavam pelo direito de votar!",
+      "texto": "FÁBRICAS, *SAMBA* E VOTO FEMININO",
+      "camera": "direita",
+      "operarios": true
+    },
+    {
+      "id": "eleicao-1930",
+      "epoca": "ELEIÇÃO DE 1930",
+      "narracao": "Em mil novecentos e trinta, menos de dez por cento votavam. O esquema paulista deu a vitória pra Júlio Prestes, e Getúlio até aceitou.",
+      "texto": "PERDEU A ELEIÇÃO PRA *JÚLIO PRESTES*",
+      "camera": "esquerda",
+      "eleicao1930": true
+    },
+    {
+      "id": "golpe-1930",
+      "epoca": "OUTUBRO DE 1930 · GOLPE 1",
+      "narracao": "Mas a Aliança Liberal marchou pro Rio, depôs Washington Luís e colocou Getúlio no poder. Ele virou presidente perdendo a eleição!",
+      "texto": "VIROU PRESIDENTE *PERDENDO* A ELEIÇÃO",
+      "camera": "palco",
+      "eleicao1930": true
+    },
+    {
+      "id": "interventores",
+      "epoca": "GOVERNO PROVISÓRIO (1930–34)",
+      "narracao": "No comando, trocou os governadores por interventores fiéis e anistiou os tenentes que ajudaram no golpe.",
+      "texto": "TROCOU GOVERNADORES POR *INTERVENTORES*",
+      "camera": "close",
+      "interventores": true
+    },
+    {
+      "id": "ministerios",
+      "epoca": "NOVEMBRO DE 1930",
+      "narracao": "Mestre da conciliação, criou o Ministério da Educação e Saúde e o do Trabalho e Indústria, agradando cafeicultores e trabalhadores.",
+      "texto": "CRIOU *EDUCAÇÃO, SAÚDE* E *TRABALHO*",
+      "camera": "palco",
+      "ministerios": true
+    },
+    {
+      "id": "revolucao-32",
+      "epoca": "9 DE JULHO DE 1932",
+      "narracao": "Só que São Paulo se revoltou! Após a morte do grupo M M D C, explodiu a Revolução Constitucionalista de trinta e dois!",
+      "texto": "SÃO PAULO REAGE: *REVOLUÇÃO DE 32*",
+      "camera": "esquerda",
+      "revolucao32": true
+    },
+    {
+      "id": "conciliador",
+      "epoca": "OUTUBRO DE 1932",
+      "narracao": "Os paulistas perderam nas armas, mas Getúlio assumiu as dívidas da guerra e prometeu finalmente uma nova Constituição.",
+      "texto": "PERDERAM NA GUERRA, MAS *GANHARAM* A CARTA",
+      "camera": "palco",
+      "revolucao32": true,
+      "carta34": true
+    },
+    {
+      "id": "constituicao-34",
+      "epoca": "1934 · GOVERNO CONSTITUCIONAL",
+      "narracao": "A carta de trinta e quatro trouxe voto feminino e voto secreto! Mas Getúlio odiou perder poderes e chamou ela de carta monstro.",
+      "texto": "A *CARTA MONSTRO*: VOTO SECRETO E *FEMININO*",
+      "camera": "close",
+      "carta34": true
+    },
+    {
+      "id": "intentona-35",
+      "epoca": "NOVEMBRO DE 1935",
+      "narracao": "Em trinta e cinco veio a Intentona Comunista! Getúlio reprimiu tudo, prendeu milhares e deportou Olga Benário pra Alemanha nazista.",
+      "texto": "1935: REPRESSÃO TOTAL À *INTENTONA*",
+      "camera": "palacio",
+      "planoCohen": true
+    },
+    {
+      "id": "plano-cohen",
+      "epoca": "1937 · A FARSA",
+      "narracao": "Com medo da eleição de trinta e sete, o governo forjou o Plano Cohen: uma farsa dizendo que comunistas iam incendiar casas!",
+      "texto": "*PLANO COHEN*: O PÂNICO FABRICADO",
+      "camera": "palco",
+      "planoCohen": true,
+      "carta34": true
+    },
+    {
+      "id": "autogolpe-37",
+      "epoca": "10 NOV 1937 · GOLPE 2",
+      "narracao": "No pânico geral, Getúlio deu um golpe nele mesmo! Rasgou a carta de trinta e quatro e começou a ditadura do Estado Novo!",
+      "texto": "DEU UM *GOLPE NELE MESMO*: *ESTADO NOVO*",
+      "camera": "close",
+      "carta34": true,
+      "estadoNovo": true
+    },
+    {
+      "id": "intentona-integralista",
+      "epoca": "MAIO DE 1938",
+      "narracao": "Quando baniu partidos, os integralistas invadiram o palácio! Só que esqueceram a dinamite e Getúlio pediu socorro pela linha secreta!",
+      "texto": "INTEGRALISTAS *ESQUECERAM A DINAMITE*!",
+      "camera": "direita",
+      "pijama": true,
+      "estadoNovo": true
+    },
+    {
+      "id": "dip-propaganda",
+      "epoca": "1939 · PROPAGANDA E RÁDIO",
+      "narracao": "Na máquina do Estado Novo, criou o D A S P e o D I P, vendendo no rádio o Getúlio pai dos pobres.",
+      "texto": "*DIP*: A FÁBRICA DO *PAI DOS POBRES*",
+      "camera": "palco",
+      "dipGuerra": true
+    },
+    {
+      "id": "segunda-guerra",
+      "epoca": "SEGUNDA GUERRA MUNDIAL",
+      "narracao": "Na Segunda Guerra, negociou com Hitler e com os Aliados. Os Estados Unidos ofereceram duzentos milhões de dólares e levaram o Brasil!",
+      "texto": "LEILÃO NA GUERRA: *EUA* PAGARAM MAIS",
+      "camera": "alta",
+      "dipGuerra": true
+    },
+    {
+      "id": "csn-borracha",
+      "epoca": "INDUSTRIALIZAÇÃO E GUERRA",
+      "narracao": "A grana rendeu a C S N e a Vale! Mas mais de dez mil trabalhadores morreram extraindo borracha pros Aliados.",
+      "texto": "AÇO DA *CSN* E SANGUE NA *BORRACHA*",
+      "camera": "palco",
+      "industria": true
+    },
+    {
+      "id": "clt-1943",
+      "epoca": "1º DE MAIO DE 1943",
+      "narracao": "Ditador equilibrista, Getúlio lançou a C L T em quarenta e três: jornada de oito horas e descanso semanal na lei!",
+      "texto": "*CLT* DE 43: JORNADA DE *8 HORAS*",
+      "camera": "close",
+      "clt": true
+    },
+    {
+      "id": "abertura-1945",
+      "epoca": "1945 · FIM DA GUERRA",
+      "narracao": "Em quarenta e cinco reabriu a política com P T B, P S D e U D N. Mas errou feio ao nomear o irmão Benjamim chefe de polícia!",
+      "texto": "O ERRO FATAL: O IRMÃO *BENJAMIM*",
+      "camera": "esquerda",
+      "golpe1945": true
+    },
+    {
+      "id": "tres-golpes",
+      "epoca": "29 DE OUTUBRO DE 1945 · GOLPE 3",
+      "narracao": "Os militares tiraram ele do cargo! Resumo? Entrou com um golpe em trinta, deu outro em si em trinta e sete e saiu num golpe em quarenta e cinco!",
+      "texto": "ENTROU COM *GOLPE*, DEU *GOLPE*, SAIU COM *GOLPE*",
+      "camera": "palco",
+      "golpe1945": true
+    },
+    {
+      "id": "cta-final",
+      "ctaFinal": true,
+      "epoca": "SE LIGA · VÍDEO COMPLETO",
+      "narracao": "Esse foi só o resumo! Quer saber cada detalhe e decidir se Getúlio foi herói ou vilão? Assiste ao vídeo completo aqui no Se Liga e acesse se liga ponto com ponto b r!",
+      "texto": "VEJA O *VÍDEO COMPLETO* NO *SE LIGA*!",
+      "camera": "palco",
+      "heroiVilao": true,
+      "duracaoMin": 6
+    }
+  ]
+}
