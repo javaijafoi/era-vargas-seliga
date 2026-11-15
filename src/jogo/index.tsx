@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {flushSync} from 'react-dom';
 import {createRoot} from 'react-dom/client';
-import {Canvas, useFrame} from '@react-three/fiber';
+import {Canvas, useFrame, useThree} from '@react-three/fiber';
 import '@fontsource/montserrat/latin-800.css';
 import '@fontsource/montserrat/latin-900.css';
 
@@ -9,6 +9,18 @@ import {CAMERAS_VARGAS, CenaPalcoVargas} from '../videos/vargas';
 import {Cabeca} from '../core/Apresentador';
 import {lerp} from '../core/mix';
 import faseJson from '../../fases/era-vargas.json';
+
+function useIsMobile(maxWidth = 768) {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth <= maxWidth : false,
+  );
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= maxWidth);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [maxWidth]);
+  return isMobile;
+}
 
 const LogoSeLiga: React.FC<{size?: number}> = ({size = 66}) => {
   const pad = Math.max(3, Math.round(size * 0.04));
@@ -242,6 +254,7 @@ interface TargetPalco {
 }
 
 const AnimadorPalco: React.FC<{alvo: TargetPalco}> = ({alvo}) => {
+  const {size} = useThree();
   const frameRef = useRef(0);
   const accRef = useRef(0);
 
@@ -279,15 +292,28 @@ const AnimadorPalco: React.FC<{alvo: TargetPalco}> = ({alvo}) => {
     frameRef.current += dt * 30;
     accRef.current += dt;
 
+    const aspect = size.width / Math.max(1, size.height);
+    const isPortrait = aspect < 0.95;
+    const extraZ = isPortrait ? (0.95 - aspect) * 20 : 0;
+    const scaleX = isPortrait ? Math.min(1, aspect + 0.28) : 1;
+
     const kCam = 1 - Math.exp(-dt * 3.8);
     const kProp = 1 - Math.exp(-dt * 4.6);
     const baseCam = CAMERAS_VARGAS[alvo.camera] ?? CAMERAS_VARGAS.palco;
     const camPosTarget = alvo.enquadramentoJogo
-      ? [baseCam.pos[0], baseCam.pos[1] + 0.5, baseCam.pos[2] + 5.2]
-      : baseCam.pos;
+      ? [
+          baseCam.pos[0] * scaleX,
+          baseCam.pos[1] + (isPortrait ? 0.75 : 0.5),
+          baseCam.pos[2] + 5.2 + extraZ,
+        ]
+      : [baseCam.pos[0] * scaleX, baseCam.pos[1], baseCam.pos[2] + extraZ * 0.85];
     const camLookTarget = alvo.enquadramentoJogo
-      ? [baseCam.look[0], Math.max(0.8, baseCam.look[1] - 0.85), baseCam.look[2]]
-      : baseCam.look;
+      ? [
+          baseCam.look[0] * scaleX,
+          Math.max(isPortrait ? -0.35 : 0.8, baseCam.look[1] - (isPortrait ? 1.25 : 0.85)),
+          baseCam.look[2],
+        ]
+      : [baseCam.look[0] * scaleX, baseCam.look[1], baseCam.look[2]];
     const cur = curRef.current;
 
     for (let j = 0; j < 3; j++) {
@@ -354,17 +380,28 @@ const AvatarSeLigaHud: React.FC<{
   onToggleAudio: () => void;
   onReplayAudio?: () => void;
   temAudio: boolean;
-}> = ({falando, fala, audioLigado, onToggleAudio, onReplayAudio, temAudio}) => (
-  <div style={{display: 'flex', alignItems: 'flex-start', gap: 12, maxWidth: 440, pointerEvents: 'auto'}}>
+  isMobile: boolean;
+}> = ({falando, fala, audioLigado, onToggleAudio, onReplayAudio, temAudio, isMobile}) => (
+  <div
+    style={{
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: isMobile ? 8 : 12,
+      maxWidth: isMobile ? '100%' : 440,
+      flex: isMobile ? 1 : undefined,
+      minWidth: 0,
+      pointerEvents: 'auto',
+    }}
+  >
     <div style={{position: 'relative', flexShrink: 0}}>
       <div
         style={{
-          width: 82,
-          height: 82,
+          width: isMobile ? 50 : 82,
+          height: isMobile ? 50 : 82,
           borderRadius: '50%',
           overflow: 'hidden',
-          border: '4px solid #ffd000',
-          boxShadow: '0 0 20px rgba(255, 208, 0, 0.55)',
+          border: isMobile ? '3px solid #ffd000' : '4px solid #ffd000',
+          boxShadow: '0 0 18px rgba(255, 208, 0, 0.55)',
           background: 'radial-gradient(circle at 50% 40%, #ffae00 0%, #d45500 75%)',
         }}
       >
@@ -375,14 +412,14 @@ const AvatarSeLigaHud: React.FC<{
       <div
         style={{
           position: 'absolute',
-          bottom: -8,
+          bottom: isMobile ? -6 : -8,
           left: '50%',
           transform: 'translateX(-50%)',
           background: '#ffd000',
           color: '#1a082e',
           fontWeight: 900,
-          fontSize: 11,
-          padding: '2px 8px',
+          fontSize: isMobile ? 8 : 11,
+          padding: isMobile ? '1px 5px' : '2px 8px',
           borderRadius: 8,
           whiteSpace: 'nowrap',
           border: '2px solid #1a082e',
@@ -396,16 +433,28 @@ const AvatarSeLigaHud: React.FC<{
       style={{
         background: 'rgba(24, 8, 44, 0.9)',
         border: '2px solid #ffd000',
-        borderRadius: 14,
-        padding: '10px 14px',
-        boxShadow: '5px 5px 0 #ff6b00',
-        fontSize: 13,
-        lineHeight: 1.38,
+        borderRadius: isMobile ? 11 : 14,
+        padding: isMobile ? '6px 9px' : '10px 14px',
+        boxShadow: isMobile ? '3px 3px 0 #ff6b00' : '5px 5px 0 #ff6b00',
+        fontSize: isMobile ? 11 : 13,
+        lineHeight: isMobile ? 1.25 : 1.38,
         color: '#f7f2ff',
+        minWidth: 0,
+        flex: isMobile ? 1 : undefined,
       }}
     >
-      <div style={{fontWeight: 800}}>{fala}</div>
-      <div style={{display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap'}}>
+      <div
+        style={{
+          fontWeight: 800,
+          display: isMobile ? '-webkit-box' : undefined,
+          WebkitLineClamp: isMobile ? 3 : undefined,
+          WebkitBoxOrient: isMobile ? 'vertical' : undefined,
+          overflow: isMobile ? 'hidden' : undefined,
+        }}
+      >
+        {fala}
+      </div>
+      <div style={{display: 'flex', gap: 6, marginTop: isMobile ? 5 : 8, flexWrap: 'wrap'}}>
         <button
           type="button"
           onClick={onToggleAudio}
@@ -413,14 +462,14 @@ const AvatarSeLigaHud: React.FC<{
             background: audioLigado ? '#ffd000' : 'rgba(255,255,255,0.12)',
             color: audioLigado ? '#1a082e' : '#ffffff',
             border: 'none',
-            borderRadius: 8,
-            padding: '4px 10px',
+            borderRadius: 7,
+            padding: isMobile ? '3px 7px' : '4px 10px',
             fontWeight: 900,
-            fontSize: 11,
+            fontSize: isMobile ? 10 : 11,
             cursor: 'pointer',
           }}
         >
-          {audioLigado ? '🔊 Voz ON' : '🔇 Voz OFF'}
+          {audioLigado ? (isMobile ? '🔊 ON' : '🔊 Voz ON') : isMobile ? '🔇 OFF' : '🔇 Voz OFF'}
         </button>
         {temAudio && onReplayAudio && (
           <button
@@ -430,14 +479,14 @@ const AvatarSeLigaHud: React.FC<{
               background: 'rgba(255, 255, 255, 0.14)',
               color: '#ffd000',
               border: '1px solid #ffd000',
-              borderRadius: 8,
-              padding: '4px 10px',
+              borderRadius: 7,
+              padding: isMobile ? '3px 7px' : '4px 10px',
               fontWeight: 800,
-              fontSize: 11,
+              fontSize: isMobile ? 10 : 11,
               cursor: 'pointer',
             }}
           >
-            ↻ Ouvir ato
+            {isMobile ? '↻ Ouvir' : '↻ Ouvir ato'}
           </button>
         )}
       </div>
@@ -450,17 +499,19 @@ const MedidoresPilares: React.FC<{
   valores: Record<PilarId, number>;
   previewEfeitos: Record<PilarId, number> | null;
   ultimosDeltas: Record<PilarId, number> | null;
-}> = ({pilares, valores, previewEfeitos, ultimosDeltas}) => (
+  isMobile: boolean;
+}> = ({pilares, valores, previewEfeitos, ultimosDeltas, isMobile}) => (
   <div
     style={{
+      width: isMobile ? '100%' : undefined,
       display: 'grid',
-      gridTemplateColumns: 'repeat(4, minmax(110px, 150px))',
-      gap: 10,
-      background: 'rgba(18, 7, 31, 0.88)',
-      border: '3px solid #ffd000',
-      borderRadius: 16,
-      padding: '10px 14px',
-      boxShadow: '6px 6px 0 #ff6b00, 0 12px 28px rgba(0,0,0,0.65)',
+      gridTemplateColumns: isMobile ? 'repeat(4, minmax(0, 1fr))' : 'repeat(4, minmax(110px, 150px))',
+      gap: isMobile ? 5 : 10,
+      background: 'rgba(18, 7, 31, 0.9)',
+      border: isMobile ? '2px solid #ffd000' : '3px solid #ffd000',
+      borderRadius: isMobile ? 12 : 16,
+      padding: isMobile ? '6px 7px' : '10px 14px',
+      boxShadow: isMobile ? '4px 4px 0 #ff6b00, 0 8px 20px rgba(0,0,0,0.6)' : '6px 6px 0 #ff6b00, 0 12px 28px rgba(0,0,0,0.65)',
       pointerEvents: 'auto',
     }}
   >
@@ -470,27 +521,39 @@ const MedidoresPilares: React.FC<{
       const emPerigo = val <= 18 || val >= 84;
       const prev = previewEfeitos ? previewEfeitos[id] : 0;
       const delta = ultimosDeltas ? ultimosDeltas[id] : 0;
+      const nomeExibido = isMobile && p.id === 'elite' ? 'Elite' : p.nome;
       return (
         <div
           key={p.id}
           className={emPerigo ? 'pilar-perigo' : undefined}
           style={{
             background: 'rgba(255,255,255,0.05)',
-            borderRadius: 10,
-            padding: '6px 8px',
+            borderRadius: isMobile ? 8 : 10,
+            padding: isMobile ? '4px 5px' : '6px 8px',
             border: emPerigo ? '2px solid #ff2d55' : '1px solid rgba(255,255,255,0.12)',
+            minWidth: 0,
           }}
         >
-          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 12, fontWeight: 900}}>
-            <span>
-              {p.icone} {p.nome}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontSize: isMobile ? 9.5 : 12,
+              fontWeight: 900,
+              gap: 2,
+            }}
+          >
+            <span style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+              {p.icone} {nomeExibido}
             </span>
             {prev !== 0 ? (
               <span
                 style={{
                   color: prev > 0 ? '#3df28f' : '#ff4d6d',
-                  fontSize: 13,
+                  fontSize: isMobile ? 10 : 13,
                   fontWeight: 900,
+                  flexShrink: 0,
                 }}
               >
                 {prev > 0 ? (Math.abs(prev) >= 15 ? '▲▲' : '▲') : Math.abs(prev) >= 15 ? '▼▼' : '▼'}
@@ -499,20 +562,21 @@ const MedidoresPilares: React.FC<{
               <span
                 style={{
                   color: delta > 0 ? '#3df28f' : '#ff4d6d',
-                  fontSize: 12,
+                  fontSize: isMobile ? 10 : 12,
                   fontWeight: 900,
+                  flexShrink: 0,
                 }}
               >
                 {delta > 0 ? `+${delta}` : delta}
               </span>
             ) : (
-              <span style={{color: emPerigo ? '#ff4d6d' : '#d6c8eb', fontSize: 12}}>{val}%</span>
+              <span style={{color: emPerigo ? '#ff4d6d' : '#d6c8eb', fontSize: isMobile ? 10 : 12, flexShrink: 0}}>{val}%</span>
             )}
           </div>
           <div
             style={{
-              marginTop: 6,
-              height: 10,
+              marginTop: isMobile ? 4 : 6,
+              height: isMobile ? 7 : 10,
               borderRadius: 99,
               background: 'rgba(0,0,0,0.55)',
               position: 'relative',
@@ -539,6 +603,7 @@ const MedidoresPilares: React.FC<{
 );
 
 const AppJogoVargas: React.FC = () => {
+  const isMobile = useIsMobile(768);
   const atos = faseJson.atos as AtoJogo[];
   const pilares = faseJson.pilares;
 
@@ -801,8 +866,89 @@ const AppJogoVargas: React.FC = () => {
   const previewAtual =
     faseTela === 'dilema' && hoverOpcao !== null ? atoAtual.opcoes[hoverOpcao]?.efeitos ?? null : null;
 
+  const badgeFase =
+    faseTela === 'inicio'
+      ? isMobile
+        ? 'TODOS OS PRESIDENTES'
+        : 'SÉRIE: TODOS OS PRESIDENTES'
+      : faseTela === 'fim'
+        ? `FIM · ${historicoLog.length}/${atos.length}`
+        : isMobile
+          ? `${atoIdx + 1}/${atos.length} · ${atoAtual.ano}`
+          : `ATO ${atoIdx + 1}/${atos.length} · ${atoAtual.ano}`;
+
+  const blocoControlesTopo = (
+    <div style={{display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 10, pointerEvents: 'auto', flexShrink: 0}}>
+      <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: isMobile ? 4 : 6}}>
+        <div
+          style={{
+            background: 'linear-gradient(90deg, #4a1278, #2b0948)',
+            color: '#ffd000',
+            fontWeight: 900,
+            fontSize: isMobile ? 10 : 12,
+            padding: isMobile ? '3px 8px' : '5px 12px',
+            borderRadius: isMobile ? 7 : 9,
+            border: '2px solid #ffd000',
+            boxShadow: isMobile ? '2px 2px 0 #ff6b00' : '4px 4px 0 #ff6b00',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {badgeFase}
+        </div>
+
+        <div style={{display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end'}}>
+          <button
+            type="button"
+            onClick={() => setEspiarPalco((v) => !v)}
+            style={{
+              background: espiarPalco ? '#ffd000' : 'rgba(18, 7, 31, 0.85)',
+              color: espiarPalco ? '#1a082e' : '#ffffff',
+              border: '2px solid #ffd000',
+              borderRadius: 8,
+              padding: isMobile ? '4px 7px' : '4px 9px',
+              fontWeight: 900,
+              fontSize: isMobile ? 10.5 : 11,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {espiarPalco ? (isMobile ? '🃏 Card' : '🃏 Mostrar Card') : isMobile ? '👁️ Palco' : '👁️ Ver Palco 3D'}
+          </button>
+
+          <button
+            type="button"
+            onClick={() =>
+              setCameraOverride((cur) => {
+                const idx = CAMERA_OPCOES.findIndex((x) => x.id === cur);
+                return CAMERA_OPCOES[(idx + 1) % CAMERA_OPCOES.length].id;
+              })
+            }
+            title="Trocar câmera (atalho C)"
+            style={{
+              background: 'rgba(18, 7, 31, 0.85)',
+              color: '#ffd000',
+              border: '2px solid rgba(255, 208, 0, 0.65)',
+              borderRadius: 8,
+              padding: isMobile ? '4px 7px' : '4px 9px',
+              fontWeight: 800,
+              fontSize: isMobile ? 10.5 : 11,
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {isMobile
+              ? `🎥 ${CAMERA_OPCOES.find((c) => c.id === cameraOverride)?.label}`
+              : `🎥 Câm: ${CAMERA_OPCOES.find((c) => c.id === cameraOverride)?.label}`}
+          </button>
+        </div>
+      </div>
+
+      <LogoSeLiga size={isMobile ? 40 : 66} />
+    </div>
+  );
+
   return (
-    <div style={{position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden'}}>
+    <div style={{position: 'relative', width: '100vw', height: '100dvh', overflow: 'hidden'}}>
       <FundoSeLigaWeb />
 
       {/* Palco 3D Low-Poly em tempo real (src/videos/vargas.tsx) */}
@@ -816,108 +962,83 @@ const AppJogoVargas: React.FC = () => {
       <header
         style={{
           position: 'fixed',
-          top: 14,
-          left: 16,
-          right: 16,
+          top: isMobile ? 8 : 14,
+          left: isMobile ? 10 : 16,
+          right: isMobile ? 10 : 16,
           zIndex: 10,
           display: 'flex',
-          alignItems: 'flex-start',
+          flexDirection: isMobile ? 'column' : 'row',
+          alignItems: isMobile ? 'stretch' : 'flex-start',
           justifyContent: 'space-between',
-          gap: 14,
-          flexWrap: 'wrap',
+          gap: isMobile ? 6 : 14,
+          flexWrap: isMobile ? 'nowrap' : 'wrap',
           pointerEvents: 'none',
         }}
       >
-        <AvatarSeLigaHud
-          falando={falando}
-          fala={falaAtual}
-          audioLigado={audioLigado}
-          onToggleAudio={() => {
-            setAudioLigado((prev) => {
-              const novo = !prev;
-              if (!novo) pararAudio();
-              return novo;
-            });
-          }}
-          temAudio={faseTela === 'dilema' && Boolean(atoAtual.audio)}
-          onReplayAudio={() => tocarAudio(atoAtual.audio)}
-        />
+        {isMobile ? (
+          <>
+            <div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 8, width: '100%'}}>
+              <div style={{flex: 1, minWidth: 0}}>
+                <AvatarSeLigaHud
+                  falando={falando}
+                  fala={falaAtual}
+                  audioLigado={audioLigado}
+                  onToggleAudio={() => {
+                    setAudioLigado((prev) => {
+                      const novo = !prev;
+                      if (!novo) pararAudio();
+                      return novo;
+                    });
+                  }}
+                  temAudio={faseTela === 'dilema' && Boolean(atoAtual.audio)}
+                  onReplayAudio={() => tocarAudio(atoAtual.audio)}
+                  isMobile
+                />
+              </div>
+              {blocoControlesTopo}
+            </div>
 
-        {faseTela !== 'inicio' && (
-          <MedidoresPilares
-            pilares={pilares}
-            valores={valores}
-            previewEfeitos={previewAtual}
-            ultimosDeltas={faseTela === 'resultado' ? ultimosDeltas : null}
-          />
-        )}
-
-        <div style={{display: 'flex', alignItems: 'center', gap: 10, pointerEvents: 'auto'}}>
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6}}>
-            <div
-              style={{
-                background: 'linear-gradient(90deg, #4a1278, #2b0948)',
-                color: '#ffd000',
-                fontWeight: 900,
-                fontSize: 12,
-                padding: '5px 12px',
-                borderRadius: 9,
-                border: '2px solid #ffd000',
-                boxShadow: '4px 4px 0 #ff6b00',
+            {faseTela !== 'inicio' && (
+              <MedidoresPilares
+                pilares={pilares}
+                valores={valores}
+                previewEfeitos={previewAtual}
+                ultimosDeltas={faseTela === 'resultado' ? ultimosDeltas : null}
+                isMobile
+              />
+            )}
+          </>
+        ) : (
+          <>
+            <AvatarSeLigaHud
+              falando={falando}
+              fala={falaAtual}
+              audioLigado={audioLigado}
+              onToggleAudio={() => {
+                setAudioLigado((prev) => {
+                  const novo = !prev;
+                  if (!novo) pararAudio();
+                  return novo;
+                });
               }}
-            >
-              {faseTela === 'inicio'
-                ? 'SÉRIE: TODOS OS PRESIDENTES'
-                : faseTela === 'fim'
-                  ? `FIM · ${historicoLog.length}/${atos.length} ATOS`
-                  : `ATO ${atoIdx + 1}/${atos.length} · ${atoAtual.ano}`}
-            </div>
+              temAudio={faseTela === 'dilema' && Boolean(atoAtual.audio)}
+              onReplayAudio={() => tocarAudio(atoAtual.audio)}
+              isMobile={false}
+            />
 
-            <div style={{display: 'flex', gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end'}}>
-              <button
-                type="button"
-                onClick={() => setEspiarPalco((v) => !v)}
-                style={{
-                  background: espiarPalco ? '#ffd000' : 'rgba(18, 7, 31, 0.85)',
-                  color: espiarPalco ? '#1a082e' : '#ffffff',
-                  border: '2px solid #ffd000',
-                  borderRadius: 8,
-                  padding: '4px 9px',
-                  fontWeight: 900,
-                  fontSize: 11,
-                  cursor: 'pointer',
-                }}
-              >
-                {espiarPalco ? '🃏 Mostrar Card' : '👁️ Ver Palco 3D'}
-              </button>
+            {faseTela !== 'inicio' && (
+              <MedidoresPilares
+                pilares={pilares}
+                valores={valores}
+                previewEfeitos={previewAtual}
+                ultimosDeltas={faseTela === 'resultado' ? ultimosDeltas : null}
+                isMobile={false}
+              />
+            )}
 
-              <button
-                type="button"
-                onClick={() =>
-                  setCameraOverride((cur) => {
-                    const idx = CAMERA_OPCOES.findIndex((x) => x.id === cur);
-                    return CAMERA_OPCOES[(idx + 1) % CAMERA_OPCOES.length].id;
-                  })
-                }
-                title="Trocar câmera (atalho C)"
-                style={{
-                  background: 'rgba(18, 7, 31, 0.85)',
-                  color: '#ffd000',
-                  border: '2px solid rgba(255, 208, 0, 0.65)',
-                  borderRadius: 8,
-                  padding: '4px 9px',
-                  fontWeight: 800,
-                  fontSize: 11,
-                  cursor: 'pointer',
-                }}
-              >
-                🎥 Câm: {CAMERA_OPCOES.find((c) => c.id === cameraOverride)?.label}
-              </button>
-            </div>
-          </div>
-
-          <LogoSeLiga size={66} />
-        </div>
+            {blocoControlesTopo}
+          </>
+        )}
       </header>
 
       {/* Container de Cartas Teatrais (Scoped View Transitions) */}
@@ -931,7 +1052,7 @@ const AppJogoVargas: React.FC = () => {
             flexDirection: 'column',
             justifyContent: 'flex-end',
             alignItems: 'center',
-            padding: '12px 16px 14px',
+            padding: isMobile ? '8px 10px max(10px, env(safe-area-inset-bottom))' : '12px 16px 14px',
             pointerEvents: 'none',
           }}
         >
@@ -941,10 +1062,12 @@ const AppJogoVargas: React.FC = () => {
                 <section
                   style={{
                     background: 'linear-gradient(135deg, rgba(74, 18, 120, 0.96) 0%, rgba(32, 8, 56, 0.97) 100%)',
-                    border: '4px solid #ffd000',
-                    borderRadius: 22,
-                    padding: '22px 26px',
-                    boxShadow: '10px 10px 0 #ff6b00, 0 20px 50px rgba(0,0,0,0.75)',
+                    border: `${isMobile ? 3 : 4}px solid #ffd000`,
+                    borderRadius: isMobile ? 18 : 22,
+                    padding: isMobile ? '14px 14px' : '22px 26px',
+                    boxShadow: isMobile
+                      ? '6px 6px 0 #ff6b00, 0 14px 36px rgba(0,0,0,0.75)'
+                      : '10px 10px 0 #ff6b00, 0 20px 50px rgba(0,0,0,0.75)',
                     textAlign: 'center',
                   }}
                 >
@@ -954,18 +1077,33 @@ const AppJogoVargas: React.FC = () => {
                       background: '#ffd000',
                       color: '#1a082e',
                       fontWeight: 900,
-                      fontSize: 12,
-                      padding: '4px 12px',
+                      fontSize: isMobile ? 10.5 : 12,
+                      padding: isMobile ? '3px 9px' : '4px 12px',
                       borderRadius: 8,
-                      letterSpacing: 1,
+                      letterSpacing: isMobile ? 0.6 : 1,
                     }}
                   >
                     JOGO INTERATIVO 3D · 1930–1945
                   </div>
-                  <h1 style={{margin: '10px 0 8px', fontSize: 'clamp(26px, 4vw, 38px)', fontWeight: 900, lineHeight: 1.05}}>
+                  <h1
+                    style={{
+                      margin: isMobile ? '7px 0 5px' : '10px 0 8px',
+                      fontSize: isMobile ? 22 : 'clamp(26px, 4vw, 38px)',
+                      fontWeight: 900,
+                      lineHeight: 1.06,
+                    }}
+                  >
                     GETÚLIO VARGAS: <span style={{color: '#ffd000'}}>O EQUILIBRISTA</span>
                   </h1>
-                  <p style={{margin: '0 auto 16px', maxWidth: 600, fontSize: 14, color: '#efe5ff', lineHeight: 1.45}}>
+                  <p
+                    style={{
+                      margin: isMobile ? '0 auto 11px' : '0 auto 16px',
+                      maxWidth: 600,
+                      fontSize: isMobile ? 12.5 : 14,
+                      color: '#efe5ff',
+                      lineHeight: isMobile ? 1.38 : 1.45,
+                    }}
+                  >
                     Tome as 12 grandes decisões da Era Vargas no palco do Palácio do Catete. Mantenha{' '}
                     <strong>Exército</strong>, <strong>Povo</strong>, <strong>Elite &amp; Café</strong> e{' '}
                     <strong>Controle</strong> entre <strong>1% e 99%</strong> — se qualquer pilar zerar ou estourar em
@@ -977,24 +1115,27 @@ const AppJogoVargas: React.FC = () => {
                       type="button"
                       onClick={iniciarJogo}
                       style={{
+                        width: isMobile ? '100%' : undefined,
                         background: 'linear-gradient(90deg, #ff8a00, #ff1e56)',
                         color: '#ffffff',
                         border: '3px solid #ffd000',
                         borderRadius: 14,
-                        padding: '13px 28px',
-                        fontSize: 17,
+                        padding: isMobile ? '11px 18px' : '13px 28px',
+                        fontSize: isMobile ? 15 : 17,
                         fontWeight: 900,
                         letterSpacing: 0.6,
                         cursor: 'pointer',
-                        boxShadow: '6px 6px 0 #1a082e',
+                        boxShadow: isMobile ? '4px 4px 0 #1a082e' : '6px 6px 0 #1a082e',
                       }}
                     >
                       ENTRAR NO PALCO (1930) ▶
                     </button>
                   </div>
-                  <div style={{marginTop: 10, fontSize: 12, color: '#d4beff', fontWeight: 700}}>
-                    Atalhos: ← / → escolher · Enter avançar · C câmera 3D
-                  </div>
+                  {!isMobile && (
+                    <div style={{marginTop: 10, fontSize: 12, color: '#d4beff', fontWeight: 700}}>
+                      Atalhos: ← / → escolher · Enter avançar · C câmera 3D
+                    </div>
+                  )}
                   <DisclaimerHomenagem textAlign="left" />
                 </section>
               )}
@@ -1003,38 +1144,62 @@ const AppJogoVargas: React.FC = () => {
                 <section
                   style={{
                     background: 'linear-gradient(135deg, rgba(58, 13, 94, 0.94) 0%, rgba(23, 6, 42, 0.96) 100%)',
-                    border: '4px solid #ffd000',
-                    borderRadius: 20,
-                    padding: '14px 19px',
-                    boxShadow: '9px 9px 0 #ff6b00, 0 20px 50px rgba(0,0,0,0.75)',
+                    border: `${isMobile ? 3 : 4}px solid #ffd000`,
+                    borderRadius: isMobile ? 17 : 20,
+                    padding: isMobile ? '11px 13px' : '14px 19px',
+                    boxShadow: isMobile
+                      ? '5px 5px 0 #ff6b00, 0 14px 36px rgba(0,0,0,0.75)'
+                      : '9px 9px 0 #ff6b00, 0 20px 50px rgba(0,0,0,0.75)',
                   }}
                 >
-                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap'}}>
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap'}}>
                     <span
                       style={{
                         background: '#ffd000',
                         color: '#1a082e',
                         fontWeight: 900,
-                        fontSize: 12,
-                        padding: '4px 12px',
+                        fontSize: isMobile ? 10.5 : 12,
+                        padding: isMobile ? '3px 9px' : '4px 12px',
                         borderRadius: 8,
                       }}
                     >
                       {atoAtual.epoca}
                     </span>
-                    <span style={{fontSize: 12, color: '#d8c2ff', fontWeight: 800}}>
-                      Passe o mouse para prever impacto nos pilares
+                    <span style={{fontSize: isMobile ? 10.5 : 12, color: '#d8c2ff', fontWeight: 800}}>
+                      {isMobile ? 'Ícones mostram impacto nos pilares' : 'Passe o mouse para prever impacto nos pilares'}
                     </span>
                   </div>
 
-                  <h2 style={{margin: '10px 0 6px', fontSize: 'clamp(20px, 3vw, 27px)', fontWeight: 900, color: '#ffffff'}}>
+                  <h2
+                    style={{
+                      margin: isMobile ? '7px 0 4px' : '10px 0 6px',
+                      fontSize: isMobile ? 17 : 'clamp(20px, 3vw, 27px)',
+                      fontWeight: 900,
+                      color: '#ffffff',
+                      lineHeight: 1.15,
+                    }}
+                  >
                     {atoAtual.titulo}
                   </h2>
-                  <p style={{margin: '0 0 14px', fontSize: 15, lineHeight: 1.45, color: '#f3eaff', fontWeight: 700}}>
+                  <p
+                    style={{
+                      margin: isMobile ? '0 0 10px' : '0 0 14px',
+                      fontSize: isMobile ? 13 : 15,
+                      lineHeight: isMobile ? 1.38 : 1.45,
+                      color: '#f3eaff',
+                      fontWeight: 700,
+                    }}
+                  >
                     {atoAtual.pergunta}
                   </p>
 
-                  <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 12}}>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(240px, 1fr))',
+                      gap: isMobile ? 8 : 12,
+                    }}
+                  >
                     {atoAtual.opcoes.map((op, idx) => (
                       <button
                         key={idx}
@@ -1049,9 +1214,9 @@ const AppJogoVargas: React.FC = () => {
                           textAlign: 'left',
                           background: hoverOpcao === idx ? '#ffd000' : 'rgba(255, 255, 255, 0.1)',
                           color: hoverOpcao === idx ? '#1a082e' : '#ffffff',
-                          border: '3px solid #ffd000',
-                          borderRadius: 14,
-                          padding: '12px 15px',
+                          border: `${isMobile ? 2.5 : 3}px solid #ffd000`,
+                          borderRadius: isMobile ? 12 : 14,
+                          padding: isMobile ? '9px 11px' : '12px 15px',
                           cursor: 'pointer',
                           transition: 'background-color 140ms ease, transform 140ms ease',
                           transform: hoverOpcao === idx ? 'translateY(-2px)' : 'none',
@@ -1061,11 +1226,44 @@ const AppJogoVargas: React.FC = () => {
                           gap: 10,
                         }}
                       >
-                        <div>
-                          <div style={{fontSize: 11, fontWeight: 900, opacity: 0.78, marginBottom: 3}}>
-                            {idx === 0 ? '← OPÇÃO 1' : 'OPÇÃO 2 →'}
+                        <div style={{width: '100%'}}>
+                          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, marginBottom: 3}}>
+                            <span style={{fontSize: isMobile ? 10 : 11, fontWeight: 900, opacity: 0.78}}>
+                              {idx === 0 ? (isMobile ? 'OPÇÃO 1' : '← OPÇÃO 1') : isMobile ? 'OPÇÃO 2' : 'OPÇÃO 2 →'}
+                            </span>
+                            {isMobile && (
+                              <span style={{display: 'inline-flex', gap: 4, flexWrap: 'wrap', justifyContent: 'flex-end'}}>
+                                {pilares.map((p) => {
+                                  const delta = op.efeitos[p.id as PilarId] ?? 0;
+                                  if (delta === 0) return null;
+                                  const sobe = delta > 0;
+                                  return (
+                                    <span
+                                      key={p.id}
+                                      style={{
+                                        fontSize: 10,
+                                        fontWeight: 900,
+                                        padding: '1px 5px',
+                                        borderRadius: 99,
+                                        background:
+                                          hoverOpcao === idx
+                                            ? '#1a082e'
+                                            : sobe
+                                              ? 'rgba(61, 242, 143, 0.16)'
+                                              : 'rgba(255, 56, 76, 0.2)',
+                                        color: sobe ? '#3df28f' : '#ff7b90',
+                                        border: `1px solid ${sobe ? 'rgba(61, 242, 143, 0.5)' : 'rgba(255, 56, 76, 0.5)'}`,
+                                      }}
+                                    >
+                                      {p.icone}
+                                      {sobe ? '▲' : '▼'}
+                                    </span>
+                                  );
+                                })}
+                              </span>
+                            )}
                           </div>
-                          <div style={{fontSize: 14, fontWeight: 900, lineHeight: 1.3}}>{op.texto}</div>
+                          <div style={{fontSize: isMobile ? 13 : 14, fontWeight: 900, lineHeight: 1.3}}>{op.texto}</div>
                         </div>
                       </button>
                     ))}
@@ -1078,10 +1276,10 @@ const AppJogoVargas: React.FC = () => {
                   style={{
                     position: 'relative',
                     background: 'linear-gradient(135deg, rgba(46, 11, 76, 0.96) 0%, rgba(19, 5, 36, 0.97) 100%)',
-                    border: `4px solid ${quedaMotivo ? '#ff2d55' : '#ffd000'}`,
-                    borderRadius: 20,
-                    padding: '14px 19px',
-                    boxShadow: `9px 9px 0 ${quedaMotivo ? '#ff2d55' : '#ff6b00'}, 0 20px 50px rgba(0,0,0,0.8)`,
+                    border: `${isMobile ? 3 : 4}px solid ${quedaMotivo ? '#ff2d55' : '#ffd000'}`,
+                    borderRadius: isMobile ? 17 : 20,
+                    padding: isMobile ? '11px 13px' : '14px 19px',
+                    boxShadow: `${isMobile ? '5px 5px' : '9px 9px'} 0 ${quedaMotivo ? '#ff2d55' : '#ff6b00'}, 0 20px 50px rgba(0,0,0,0.8)`,
                   }}
                 >
                   {/* Carimbo Teatral batendo na tela */}
@@ -1089,16 +1287,16 @@ const AppJogoVargas: React.FC = () => {
                     className="carimbo-anim"
                     style={{
                       position: 'absolute',
-                      top: -18,
-                      right: 16,
-                      border: '4px solid #e62429',
+                      top: isMobile ? -14 : -18,
+                      right: isMobile ? 10 : 16,
+                      border: `${isMobile ? 3 : 4}px solid #e62429`,
                       background: '#fff3e0',
                       color: '#c8201a',
-                      borderRadius: 12,
-                      padding: '4px 14px',
+                      borderRadius: isMobile ? 9 : 12,
+                      padding: isMobile ? '3px 9px' : '4px 14px',
                       fontWeight: 900,
-                      fontSize: 18,
-                      letterSpacing: 1,
+                      fontSize: isMobile ? 13 : 18,
+                      letterSpacing: isMobile ? 0.5 : 1,
                       boxShadow: '0 6px 20px rgba(0,0,0,0.45)',
                     }}
                   >
@@ -1108,26 +1306,49 @@ const AppJogoVargas: React.FC = () => {
                   <div
                     style={{
                       display: 'inline-block',
+                      maxWidth: isMobile ? 'calc(100% - 130px)' : undefined,
                       background: opcaoEscolhida.historico ? '#3df28f' : '#ff9e00',
                       color: '#140822',
                       fontWeight: 900,
-                      fontSize: 12,
-                      padding: '4px 12px',
+                      fontSize: isMobile ? 10.5 : 12,
+                      padding: isMobile ? '3px 8px' : '4px 12px',
                       borderRadius: 8,
                     }}
                   >
-                    {opcaoEscolhida.historico ? '✓ CAMINHO HISTÓRICO DE VARGAS' : '⚡ HISTÓRIA ALTERNATIVA ("E SE...")'}
+                    {opcaoEscolhida.historico
+                      ? isMobile
+                        ? '✓ CAMINHO HISTÓRICO'
+                        : '✓ CAMINHO HISTÓRICO DE VARGAS'
+                      : isMobile
+                        ? '⚡ "E SE..." ALTERNATIVO'
+                        : '⚡ HISTÓRIA ALTERNATIVA ("E SE...")'}
                   </div>
 
-                  <h3 style={{margin: '10px 0 6px', fontSize: 21, fontWeight: 900, color: quedaMotivo ? '#ff5c7c' : '#ffd000'}}>
+                  <h3
+                    style={{
+                      margin: isMobile ? '8px 0 4px' : '10px 0 6px',
+                      fontSize: isMobile ? 17 : 21,
+                      fontWeight: 900,
+                      color: quedaMotivo ? '#ff5c7c' : '#ffd000',
+                      lineHeight: 1.15,
+                    }}
+                  >
                     {quedaMotivo ? quedaMotivo.titulo : atoAtual.titulo}
                   </h3>
-                  <p style={{margin: '0 0 12px', fontSize: 14, lineHeight: 1.45, color: '#ffffff', fontWeight: 700}}>
+                  <p
+                    style={{
+                      margin: isMobile ? '0 0 10px' : '0 0 12px',
+                      fontSize: isMobile ? 13 : 14,
+                      lineHeight: isMobile ? 1.38 : 1.45,
+                      color: '#ffffff',
+                      fontWeight: 700,
+                    }}
+                  >
                     {quedaMotivo ? quedaMotivo.texto : opcaoEscolhida.resultado}
                   </p>
 
                   {/* Deltas numéricos */}
-                  <div style={{display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 14}}>
+                  <div style={{display: 'flex', gap: isMobile ? 5 : 8, flexWrap: 'wrap', marginBottom: isMobile ? 10 : 14}}>
                     {pilares.map((p) => {
                       const d = opcaoEscolhida.efeitos[p.id as PilarId] ?? 0;
                       if (d === 0) return null;
@@ -1139,12 +1360,12 @@ const AppJogoVargas: React.FC = () => {
                             border: `1px solid ${d > 0 ? '#3df28f' : '#ff384c'}`,
                             color: d > 0 ? '#3df28f' : '#ff6b81',
                             fontWeight: 900,
-                            fontSize: 12,
-                            padding: '4px 10px',
+                            fontSize: isMobile ? 11 : 12,
+                            padding: isMobile ? '3px 8px' : '4px 10px',
                             borderRadius: 99,
                           }}
                         >
-                          {p.icone} {p.nome}: {d > 0 ? `+${d}` : d}
+                          {p.icone} {isMobile && p.id === 'elite' ? 'Elite' : p.nome}: {d > 0 ? `+${d}` : d}
                         </span>
                       );
                     })}
@@ -1162,8 +1383,8 @@ const AppJogoVargas: React.FC = () => {
                       color: quedaMotivo ? '#ffffff' : '#1a082e',
                       border: 'none',
                       borderRadius: 12,
-                      padding: '12px 20px',
-                      fontSize: 15,
+                      padding: isMobile ? '11px 16px' : '12px 20px',
+                      fontSize: isMobile ? 14 : 15,
                       fontWeight: 900,
                       cursor: 'pointer',
                     }}
@@ -1179,20 +1400,22 @@ const AppJogoVargas: React.FC = () => {
                 <section
                   style={{
                     background: 'linear-gradient(135deg, rgba(56, 12, 92, 0.96) 0%, rgba(20, 5, 36, 0.98) 100%)',
-                    border: `4px solid ${quedaMotivo ? '#ff2d55' : '#3df28f'}`,
-                    borderRadius: 22,
-                    padding: '20px 24px',
-                    boxShadow: '10px 10px 0 #ff6b00, 0 20px 50px rgba(0,0,0,0.85)',
+                    border: `${isMobile ? 3 : 4}px solid ${quedaMotivo ? '#ff2d55' : '#3df28f'}`,
+                    borderRadius: isMobile ? 18 : 22,
+                    padding: isMobile ? '14px 14px' : '20px 24px',
+                    boxShadow: isMobile
+                      ? '6px 6px 0 #ff6b00, 0 14px 36px rgba(0,0,0,0.85)'
+                      : '10px 10px 0 #ff6b00, 0 20px 50px rgba(0,0,0,0.85)',
                   }}
                 >
-                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10}}>
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8}}>
                     <span
                       style={{
                         background: quedaMotivo ? '#ff2d55' : '#3df28f',
                         color: quedaMotivo ? '#ffffff' : '#120820',
                         fontWeight: 900,
-                        fontSize: 12,
-                        padding: '4px 12px',
+                        fontSize: isMobile ? 10.5 : 12,
+                        padding: isMobile ? '3px 9px' : '4px 12px',
                         borderRadius: 8,
                       }}
                     >
@@ -1200,26 +1423,33 @@ const AppJogoVargas: React.FC = () => {
                         ? `DEPOSTO NO ATO ${historicoLog.length}/${atos.length}`
                         : `SOBREVIVEU AOS 15 ANOS (1930–1945)!`}
                     </span>
-                    <span style={{fontSize: 13, fontWeight: 900, color: '#ffd000'}}>
+                    <span style={{fontSize: isMobile ? 11.5 : 13, fontWeight: 900, color: '#ffd000'}}>
                       Fidelidade Histórica: {acertosHistoricos}/{atos.length}
                     </span>
                   </div>
 
-                  <h2 style={{margin: '10px 0 8px', fontSize: 'clamp(22px, 3.2vw, 30px)', fontWeight: 900, color: '#ffd000'}}>
+                  <h2
+                    style={{
+                      margin: isMobile ? '7px 0 6px' : '10px 0 8px',
+                      fontSize: isMobile ? 19 : 'clamp(22px, 3.2vw, 30px)',
+                      fontWeight: 900,
+                      color: '#ffd000',
+                    }}
+                  >
                     {tituloVeredito}
                   </h2>
 
                   <div
                     style={{
-                      maxHeight: 130,
+                      maxHeight: isMobile ? 105 : 130,
                       overflowY: 'auto',
                       background: 'rgba(0,0,0,0.3)',
                       borderRadius: 12,
-                      padding: '8px 12px',
-                      marginBottom: 14,
+                      padding: isMobile ? '7px 10px' : '8px 12px',
+                      marginBottom: isMobile ? 10 : 14,
                       display: 'grid',
                       gap: 5,
-                      fontSize: 12,
+                      fontSize: isMobile ? 11 : 12,
                     }}
                   >
                     {historicoLog.map((item, k) => (
@@ -1234,18 +1464,21 @@ const AppJogoVargas: React.FC = () => {
                     ))}
                   </div>
 
-                  <div style={{display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between'}}>
+                  <div style={{display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between'}}>
                     <a
                       href="https://seliga.com.br"
                       target="_blank"
                       rel="noreferrer"
                       style={{
+                        width: isMobile ? '100%' : undefined,
+                        textAlign: 'center',
+                        boxSizing: 'border-box',
                         background: '#ffd000',
                         color: '#1a082e',
                         textDecoration: 'none',
                         fontWeight: 900,
-                        fontSize: 13,
-                        padding: '10px 16px',
+                        fontSize: isMobile ? 12.5 : 13,
+                        padding: isMobile ? '9px 14px' : '10px 16px',
                         borderRadius: 12,
                       }}
                     >
@@ -1256,12 +1489,13 @@ const AppJogoVargas: React.FC = () => {
                       type="button"
                       onClick={iniciarJogo}
                       style={{
+                        width: isMobile ? '100%' : undefined,
                         background: 'linear-gradient(90deg, #ff8a00, #ff1e56)',
                         color: '#ffffff',
                         border: '3px solid #ffd000',
                         borderRadius: 12,
-                        padding: '10px 22px',
-                        fontSize: 15,
+                        padding: isMobile ? '10px 18px' : '10px 22px',
+                        fontSize: isMobile ? 14 : 15,
                         fontWeight: 900,
                         cursor: 'pointer',
                       }}
@@ -1279,7 +1513,8 @@ const AppJogoVargas: React.FC = () => {
             <div
               style={{
                 marginTop: 4,
-                fontSize: 10,
+                fontSize: isMobile ? 9 : 10,
+                lineHeight: 1.25,
                 color: 'rgba(235, 224, 255, 0.72)',
                 textAlign: 'center',
                 textShadow: '0 1px 4px rgba(0,0,0,0.85)',
