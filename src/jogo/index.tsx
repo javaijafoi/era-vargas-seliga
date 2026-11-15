@@ -149,6 +149,30 @@ function runScopedCardTransition(
   transition?.ready?.catch?.(() => {});
 }
 
+const DisclaimerHomenagem: React.FC<{textAlign?: 'left' | 'center'}> = ({textAlign = 'left'}) => (
+  <div
+    style={{
+      marginTop: 10,
+      padding: '8px 12px',
+      borderRadius: 10,
+      background: 'rgba(10, 3, 20, 0.55)',
+      border: '1px solid rgba(255, 208, 0, 0.35)',
+      fontSize: 11,
+      lineHeight: 1.4,
+      color: '#e2d6f8',
+      textAlign,
+    }}
+  >
+    <strong style={{color: '#ffd000'}}>Aviso:</strong> Este jogo <strong>não foi feito pelo Se Liga</strong> — é uma
+    homenagem independente inspirada na aula sobre a Era Vargas. Qualquer simplificação, adaptação ou eventual erro histórico
+    é de inteira responsabilidade de quem criou este experimento, sem vínculo oficial com a equipe do Se Liga (
+    <a href="https://seliga.com.br" target="_blank" rel="noreferrer" style={{color: '#ffd000'}}>
+      seliga.com.br
+    </a>
+    ).
+  </div>
+);
+
 // Fundo teatral Se Liga adaptado para Web em tempo real
 const FundoSeLigaWeb: React.FC = () => (
   <div style={{position: 'fixed', inset: 0, background: '#090312', overflow: 'hidden', zIndex: 0}}>
@@ -971,6 +995,7 @@ const AppJogoVargas: React.FC = () => {
                   <div style={{marginTop: 10, fontSize: 12, color: '#d4beff', fontWeight: 700}}>
                     Atalhos: ← / → escolher · Enter avançar · C câmera 3D
                   </div>
+                  <DisclaimerHomenagem textAlign="left" />
                 </section>
               )}
 
@@ -1244,10 +1269,25 @@ const AppJogoVargas: React.FC = () => {
                       JOGAR NOVAMENTE ↻
                     </button>
                   </div>
+
+                  <DisclaimerHomenagem textAlign="left" />
                 </section>
               )}
             </div>
           </div>
+          {(faseTela === 'dilema' || faseTela === 'resultado') && (
+            <div
+              style={{
+                marginTop: 4,
+                fontSize: 10,
+                color: 'rgba(235, 224, 255, 0.72)',
+                textAlign: 'center',
+                textShadow: '0 1px 4px rgba(0,0,0,0.85)',
+              }}
+            >
+              Homenagem de fã sem vínculo oficial com o Se Liga · Eventuais erros históricos ou simplificações são do autor do jogo.
+            </div>
+          )}
         </main>
       )}
     </div>

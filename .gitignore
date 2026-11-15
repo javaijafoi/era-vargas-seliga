@@ -5,3 +5,5 @@ voices/
 out/
 *.zip
 public/audio/
+
+.vercel
