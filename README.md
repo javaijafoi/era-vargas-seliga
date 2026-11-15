@@ -1,4 +1,19 @@
-# Vídeos 3D low poly por código
+# Se Liga 3D: Era Vargas e vídeos low poly
+
+## Jogo: Era Vargas, O Equilibrista
+
+**No ar:** https://era-vargas-seliga.vercel.app
+
+Jogo 3D de decisões sobre a Era Vargas (1930 a 1945), no palco do Palácio do Catete. São 12 decisões históricas;
+cada escolha mexe em quatro pilares (Exército, Povo, Elite & Café e Controle), e se algum zerar ou passar de 100% vem o golpe.
+
+É uma homenagem independente às aulas do Se Liga (seliga.com.br), sem vínculo oficial com a equipe deles.
+
+- Fases em `fases/era-vargas.json`, código em `src/jogo/index.tsx`
+- `npm run jogo` gera o bundle e abre um servidor local; `npm run jogo:build` gera `public/jogo/`
+- Roda só no navegador: não usa backend, conta nem armazenamento local
+
+## Vídeos 3D low poly por código
 
 Shorts verticais (1080x1920) de animação 3D low poly, 100% gerados por código: Three.js (React Three Fiber) dentro do Remotion.
 Cada vídeo novo = um JSON de roteiro. O 3D é sempre o mesmo kit, então fica consistente de um vídeo para outro.
