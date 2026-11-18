@@ -1,0 +1,15 @@
+# Era Vargas: O Equilibrista
+
+> Jogo 3D de decisões sobre o Brasil de 1930 a 1945, no palco do Palácio do Catete: 12 escolhas, quatro pilares e um golpe à espreita. Homenagem independente às aulas do Se Liga.
+
+Era Vargas: O Equilibrista é um jogo 3D de decisões sobre a Era Vargas (1930 a 1945). O jogador toma 12 decisões históricas e equilibra quatro pilares (Exército, Povo, Elite e Café, Controle); se algum zerar ou passar de 100%, vem o golpe. Cenário low poly feito em código (React Three Fiber) e narração por voz sintética. É uma homenagem independente às aulas do Se Liga (seliga.com.br), sem vínculo oficial.
+
+Feito por Peter (@javaijafoi), desenvolvedor brasileiro. Site em português do Brasil.
+
+## Links
+
+- [Abrir Era Vargas: O Equilibrista](https://era-vargas-seliga.vercel.app/)
+- [Portfólio do Peter](https://javaijafoi.vercel.app): Todos os projetos do Peter (jogos, histórias interativas e experimentos com IA).
+- [Código deste projeto](https://github.com/javaijafoi/era-vargas-seliga): Repositório público no GitHub.
+- [GitHub do Peter](https://github.com/javaijafoi): Perfil do autor.
+- [llms.txt do portfólio](https://javaijafoi.vercel.app/llms.txt): Guia de todos os projetos para IAs.

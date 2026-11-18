@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://era-vargas-seliga.vercel.app/sitemap.xml
