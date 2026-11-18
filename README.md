@@ -1,4 +1,24 @@
-# Se Liga 3D: Era Vargas e vídeos low poly
+<div align="center">
+
+# 🏛️ Era Vargas: O Equilibrista
+
+**Jogo 3D de decisões sobre o Brasil de 1930 a 1945, no palco do Palácio do Catete.**
+Doze escolhas históricas, quatro pilares e um golpe à espreita. Roda no navegador, sem conta.
+
+[![Jogar agora](https://img.shields.io/badge/%E2%96%B6%20jogar%20agora-era--vargas--seliga.vercel.app-ff9f1c?style=for-the-badge&labelColor=3b1058)](https://era-vargas-seliga.vercel.app)
+
+![React](https://img.shields.io/badge/React-18-61dafb?style=flat-square&logo=react&logoColor=black)
+![Three.js](https://img.shields.io/badge/Three.js-React%20Three%20Fiber-000?style=flat-square&logo=threedotjs)
+![Remotion](https://img.shields.io/badge/Remotion-v%C3%ADdeos%20por%20c%C3%B3digo-0b84f3?style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript&logoColor=white)
+![Homenagem](https://img.shields.io/badge/homenagem-ao%20Se%20Liga-ffd400?style=flat-square&labelColor=3b1058)
+
+<img src="docs/img/capa.jpg" alt="Tela de abertura do jogo, com o Palácio do Catete em low poly" width="820">
+
+</div>
+
+---
+
 
 ## Jogo: Era Vargas, O Equilibrista
 
