@@ -3,14 +3,14 @@
   "outputDirectory": "public",
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [
         {
           "type": "host",
           "value": "era-vargas-seliga.vercel.app"
         }
       ],
-      "destination": "https://equilibrista.javaijafoi.dev/:path*",
+      "destination": "https://equilibrista.javaijafoi.dev/$1",
       "statusCode": 301
     }
   ]
