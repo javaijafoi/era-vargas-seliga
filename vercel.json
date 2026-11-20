@@ -1,4 +1,17 @@
 {
   "buildCommand": "",
-  "outputDirectory": "public"
+  "outputDirectory": "public",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "era-vargas-seliga.vercel.app"
+        }
+      ],
+      "destination": "https://equilibrista.javaijafoi.dev/:path*",
+      "statusCode": 301
+    }
+  ]
 }
